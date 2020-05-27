@@ -1,9 +1,101 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+body {margin: 0;}
+
+.sansserif {
+  font-family: Raleway, Arial, sans-serif;
 }
 
-#greeting-container {
-  margin-top: 20px;
+.header {
+  background-color: #86BBD8; /* Grey background */
+  color: black;
+  padding:20px 10px;
+  text-align: center; /* Centered text */
+  font-size: 30px; /* Big font size */
+  font-weight: bold;
+  position: fixed;
+  width: 100%;
+  top: 0 !important;
+}
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+.bio {
+  margin-left: 200px;
+  margin-top: 70px;
+  padding: 20px 20px;
+  height: auto;
+  width: auto;
+  font-weight: lighter;
+}
+
+/* The side navigation menu */
+.sidebar {
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  text-align: center;
+  top: 0;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar a.active {
+  background-color: #19647E;
+  color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: #37392E;
+  color: white;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 800px) {
+  .sidebar {
+    width: 100%;
+    top: 70px;
+    height: auto;
+    position: fixed;
+  }
+  .sidebar a {float: left;}
+  .bio {margin-left: 0; margin-top: 100px;}
+  .header {left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+.background {
+  display:flex;
+  flex-direction: row;
+  text-align: justify;
+}
+
+.background > .LI-profile-badge {
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+
+.bg_text + .LI-profile-badge {
+    margin-left: 20px;
+}
+
+.spacing {
+    line-height: 1.5;
 }
