@@ -2,17 +2,36 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
   </head>
-  <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+
+  <body class="spacing sansserif" style="background-color:#DFDFDF;">
+    <div id="header" class="header">Thomas Cintra Portfolio</div>
+    
+    <div id="mySidenav" class="sidebar">
+      <a href="index.html" class="active">About Me</a>
+      <a href="#projects">Projects</a>
+      <a href="#coursework and skills">Coursework &amp; Skills</a>
+      <a href="resume.html">Resume</a>
+    </div>
+    
+    <div id="bio" class="bio">
+      <div id="background" class="background">
+        <div id="bg_text" class="bg_text">
+          <p class="intro"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Japanese-Brazilian and 
+          was born in the great city of São Paulo. I am currently a STEP intern in the Engineering Production team at Google.
+          I am a rising junior at Harvey Mudd College, majoring in Mathematics and Physics. Although not a Computer 
+          Science major, I am deeply interested in software engineering and data science, having spent the past 
+          two summers working on tech related projects.</p>
+          <p> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> for any questions, 
+          or just to chat!</p>
+        </div>
+        <div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="en_US" 
+        data-type="vertical" data-theme="dark" data-vanity="thomascintra"><a class="LI-simple-link" 
+        href='https://www.linkedin.com/in/thomascintra?trk=profile-badge'>Thomas Cintra</a></div>
+      </div>
     </div>
   </body>
 </html>
