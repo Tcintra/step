@@ -1,37 +1,94 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-    <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
-  </head>
 
-  <body class="spacing sansserif" style="background-color:#DFDFDF;">
-    <div id="header" class="header">Thomas Cintra Portfolio</div>
-    
-    <div id="mySidenav" class="sidebar">
-      <a href="index.html" class="active">About Me</a>
-      <a href="#projects">Projects</a>
-      <a href="#coursework and skills">Coursework &amp; Skills</a>
-      <a href="resume.html">Resume</a>
-    </div>
-    
-    <div id="bio" class="bio">
-      <div id="background" class="background">
-        <div id="bg_text" class="bg_text">
-          <p class="intro"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Japanese-Brazilian and 
-          was born in the great city of São Paulo. I am currently a STEP intern in the Engineering Production team at Google.
-          I am a rising junior at Harvey Mudd College, majoring in Mathematics and Physics. Although not a Computer 
-          Science major, I am deeply interested in software engineering and data science, having spent the past 
-          two summers working on tech related projects.</p>
-          <p> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> for any questions, 
-          or just to chat!</p>
-        </div>
-        <div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="en_US" 
-        data-type="vertical" data-theme="dark" data-vanity="thomascintra"><a class="LI-simple-link" 
-        href='https://www.linkedin.com/in/thomascintra?trk=profile-badge'>Thomas Cintra</a></div>
-      </div>
-    </div>
-  </body>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js"></script>
+	<script src="https://kit.fontawesome.com/1bb7eb9069.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+	<title>Front Page</title>
+</head>
+
+<body class="spacing sansserif" style="background-color:#DFDFDF;">
+	<div id="header" class="header" style="z-index: 1000;">Thomas Cintra Portfolio</div>
+	<div id="mySidenav" class="sidebar"> <a href="index.html" class="active">Home</a> <a href="#projects">Projects</a> <a href="resume.html">Resume</a></div>
+	<div id="front-page-content" class="content">
+		<div id="front-page-row" class="front-page-row">
+			<div id="front-page-column1" class="front-page-column1">
+				<p class="heading" style="padding-top: 10px">About Me</p>
+				<p class="text" style="font-size: 16px"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Japanese-Brazilian and was born in the great city of São Paulo. I am currently a STEP intern in the Engineering Production team at Google. I am a rising junior at Harvey Mudd College, majoring in Mathematics and Physics. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects. Beyond tech, I am a Philosophy concentration, which is what we call a "minor" at Harvey Mudd.</p>
+				<br/>
+				<p class="heading">Relevant Coursework</p>
+                <div class="flex-box">
+                    <div class="text" style="flex: 0 0 33.3%; max-width: 33.3%;">
+                        <p class="text"><b>Mathematics</b></p>
+                        <ul style="margin-top: 0;">
+                            <li>MATH055: Discrete Mathematics</li>
+                            <li>MATH070: Linear Algebra</li>
+                            <li>MATH080: Differential Equations</li>
+                            <li>MATH171: Abstract Algebra</li>
+                        </ul>
+                    </div>
+                    <div class="text" style="flex: 0 0 33.3%; max-width: 33.3%;">
+                        <p class="text"><b>Physics</b></p>
+                        <ul style="margin-top: 0;">
+                            <li>PHYS023: Special Relativity</li>
+                            <li>PHYS024: Mechanics</li>
+                            <li>PHYS051: Electromagnetism</li>
+                            <li>PHYS052: Quantum Physics</li>
+                        </ul>
+                    </div>
+                    <div class="text" style="flex: 0 0 33.4%; max-width: 33.4%;">
+                        <p class="text"><b>Computer Science</b></p>
+                        <ul style="margin-top: 0;">
+                            <li>CSCI005: Intro to Compuer Science (Python)</li>
+                            <li>CSCI060: Principles of Computer Science (Java &amp; Racket)</li>
+                            <li>CSCI070: Data Structures and Program Development (C++)</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="heading">Programming Languages and Tools</p>
+                <div class="flex-box">
+                    <div class="text" style="flex: 0 0 50%; max-width: 50%;">
+                        <p class="text"><b>Experienced</b></p>
+                        <ul style="margin-top: 0;">
+                            <li>Python</li>
+                            <li>Java</li>
+                            <li>C++</li>
+                            <li>Git</li>
+                        </ul>
+                    </div>
+                    <div class="text" style="flex: 0 0 50%; max-width: 50%;">
+                        <p class="text"><b>Familiar</b></p>
+                        <ul style="margin-top: 0;">
+                            <li>JavaScript</li>
+                            <li>CSS</li>
+                            <li>HTML</li>
+                            <li>MATLAB</li>
+                            <li>Pandas</li>
+                            <li>Scikit-Learn</li>
+                        </ul>
+                    </div>
+                </div>
+			</div>
+            <div class="front-page-column2">
+			    <div class="LI-profile-badge" data-version="v1" data-size="medium" data-locale="en_US" data-type="vertical" data-theme="dark" data-vanity="thomascintra"><a class="LI-simple-link" href='https://www.linkedin.com/in/thomascintra?trk=profile-badge'>Thomas Cintra</a></div>
+                <p class="text" style="margin-top: 10px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a>, or on any of the links below:</p>
+				<div class="media" style="margin-top: 10px">
+					<form action="https://github.com/Tcintra" target="_blank">
+						<button type="submit" class="media-btns"><i class="fab fa-github fa-3x"></i></button>
+					</form>
+					<form action="https://www.linkedin.com/in/thomascintra/" target="_blank">
+						<button type="submit" class="media-btns"><i class="fab fa-linkedin fa-3x"></i></button>
+					</form>
+					<form action="https://instagram.com/tncintra" target="_blank">
+						<button type="submit" class="media-btns"><i class="fab fa-instagram-square fa-3x"></i></button>
+					</form>
+				</div>
+            </div>
+		</div>
+	</div>
+</body>
+
 </html>
