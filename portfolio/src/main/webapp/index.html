@@ -5,23 +5,26 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
     <script src="https://kit.fontawesome.com/1bb7eb9069.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
     <title>Front Page</title>
   </head>
-  <body class="spacing sansserif" style="background-color:#DFDFDF;">
+  <body class="spacing sansserif" style="background-color:#EEF0F2;">
     <div id="header" class="header" style="z-index: 1000;">Thomas Nanba Cintra</div>
     <div id="mySidenav" class="sidebar"> <a href="index.html" class="active">Home</a> <a href="coursework_and_skills.html">Coursework &amp; Skills</a> <a href="projects.html">Projects</a> <a href="resume.html">Resume</a></div>
     <div id="front-page-content" class="content">
       <div id="front-page-row" class="front-page-row">
-        <div id="front-page-column1" class="front-page-column1">
+        <div class="column1" style="height: auto;">
           <p class="heading" style="padding-top: 10px">About Me</p>
-          <p class="text" style="font-size: 16px"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Japanese-Brazilian and was born in the great city of São Paulo. I am currently a STEP intern in the Engineering Production team at Google. I am a rising junior at Harvey Mudd College, majoring in Mathematics and Physics. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects. Beyond tech, I am a Philosophy concentration, which is what we call a "minor" at Harvey Mudd.</p>
+          <p class="text" style="font-size: 16px"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Japanese-Brazilian and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Production team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects.</p>
           <br/>
+          <p class="text" style="font-size: 16px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p>
         </div>
-        <div class="front-page-column2">
-          <div class="LI-profile-badge" data-version="v1" data-size="medium" data-locale="en_US" data-type="vertical" data-theme="dark" data-vanity="thomascintra"><a class="LI-simple-link" href='https://www.linkedin.com/in/thomascintra?trk=profile-badge'>Thomas Cintra</a></div>
-          <p class="text" style="margin-top: 10px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a>, or on any of the links below:</p>
-          <div class="media" style="margin-top: 10px">
+        <div class="column2">
+          <img src="images/me.jpeg" alt="resume-pfp" class="resume-pfp" width="150px">
+          <p class="short-description"><b>Thomas Cintra</b>
+            <br/> STEP EngProd Intern at Google
+            <br/> 
+          </p>
+          <div class="media">
             <form action="https://github.com/Tcintra" target="_blank">
               <button type="submit" class="media-btns"><i class="fab fa-github fa-3x"></i></button>
             </form>
@@ -32,6 +35,10 @@
               <button type="submit" class="media-btns"><i class="fab fa-instagram-square fa-3x"></i></button>
             </form>
           </div>
+          <form action="images/Resume.pdf" download target="_blank">
+            <p class="text" style="font-size: 16px">Download my resume</p>
+            <button type="submit" class="media-btns"><i class="fas fa-file-download fa-3x"></i></button>
+          </form>
         </div>
       </div>
     </div>

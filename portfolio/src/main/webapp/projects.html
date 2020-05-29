@@ -7,11 +7,69 @@
     <script src="https://kit.fontawesome.com/1bb7eb9069.js" crossorigin="anonymous"></script>
     <title>Projects</title>
   </head>
-  <body class="spacing sansserif" style="background-color:#DFDFDF;">
+  <body class="spacing sansserif" style="background-color:#EEF0F2;">
     <div id="header" class="header" style="z-index: 1000;">Thomas Nanba Cintra</div>
     <div id="mySidenav" class="sidebar"> <a href="index.html">Home</a> <a href="coursework_and_skills.html">Coursework &amp; Skills</a> <a href="projects.html" class="active">Projects</a> <a href="resume.html">Resume</a></div>
     <div id="projects-content" class="content">
-      <p>f</p>
+      <div id="projects-row" class="wrapper">
+        <div class="column1" style="padding-top: 10px;">
+          <div class="list-box">
+            <div>
+              <p class="heading" style="margin-bottom: 10px;">CSCI151 Coursework</p>
+              <div class="project">
+                <img src="images/algbias.png" alt="algbias.png" class="project-img">
+                <div>
+                  <p class="project-text" style="text-align: justify;">Research and development of machine learning coursework for CS181R - Data Science and Ethics. Projects included: data visualization using seaborn and matplotlib, missing values and feature engineering, and investigating algorithmic bias. The github repos and homework documents can be found below.</p>
+                  <div style="display: flex; flex-direction: row; justify-content: center; text-align: center;">
+                    <form action="https://github.com/Tcintra/Data-Visualization" target="_blank" style="padding: 10px">
+                      <button type="submit" class="media-btns" style="color: #5090AB;">Data Visualization GitHub</i></button>
+                    </form>
+                    <form action="https://github.com/Tcintra/Missing-Values-and-Feature-Engineering" target="_blank" style="padding: 10px">
+                      <button type="submit" class="media-btns" style="color: #5090AB">Feature Engineering GitHub</i></button>
+                    </form>
+                    <form action="https://github.com/Tcintra/algorithmic-bias" target="_blank" style="padding: 10px">
+                      <button type="submit" class="media-btns" style="color: #5090AB">Algorithmic Bias GitHub</i></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <br/>
+              <p class="heading" style="margin-bottom: 10px;">Java Spampede Applet</p>
+              <div class="project">
+                <img src="images/spampede.png" alt="spampede.png" class="project-img">
+                <div>
+                  <p class="project-text">Designed a java applet that plays an interesting variation of Snake, with a few extra rules and an opponent snake trying to eat you. As Java applets are no longer supported on chrome, please download the zip file below to play the game! You might need to have an IDE that supports Java files, like Eclipse, to run the game.</p>
+                  <form action="japplet/japplet.zip" download target="_blank" style="text-align: center;">
+                    <button type="submit" class="media-btns" style="color: #5090AB">Download the zip File</i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column2">
+          <img src="images/me.jpeg" alt="resume-pfp" class="resume-pfp" width="150px">
+          <p class="short-description"><b>Thomas Cintra</b>
+            <br/> STEP EngProd Intern at Google
+            <br/> 
+          </p>
+          <div class="media">
+            <form action="https://github.com/Tcintra" target="_blank">
+              <button type="submit" class="media-btns"><i class="fab fa-github fa-3x"></i></button>
+            </form>
+            <form action="https://www.linkedin.com/in/thomascintra/" target="_blank">
+              <button type="submit" class="media-btns"><i class="fab fa-linkedin fa-3x"></i></button>
+            </form>
+            <form action="https://instagram.com/tncintra" target="_blank">
+              <button type="submit" class="media-btns"><i class="fab fa-instagram-square fa-3x"></i></button>
+            </form>
+          </div>
+          <form action="images/Resume.pdf" download target="_blank">
+            <p class="text" style="font-size: 16px">Download my resume</p>
+            <button type="submit" class="media-btns"><i class="fas fa-file-download fa-3x"></i></button>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>
