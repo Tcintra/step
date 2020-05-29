@@ -2,18 +2,94 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href= "style.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/1bb7eb9069.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+    <title>Resume</title>
   </head>
-
   <body class="spacing sansserif" style="background-color:#DFDFDF;">
-    <div id="header" class="header">Thomas Cintra Portfolio</div>
-    
-    <div id="mySidenav" class="sidebar">
-      <a href="index.html">About Me</a>
-      <a href="#projects">Projects</a>
-      <a href="#coursework and skills">Coursework &amp; Skills</a>
-      <a href="resume.html" class="active">Resume</a>
+    <div id="header" class="header">Thomas Nanba Cintra</div>
+    <div id="mySidenav" class="sidebar"> <a href="index.html">Home</a> <a href="coursework_and_skills.html">Coursework &amp; Skills</a> <a href="projects.html">Projects</a> <a href="resume.html" class="active">Resume</a> </div>
+    <div id="resume-content" class="content">
+      <div class="wrapper">
+        <div class="column1">
+          <dl>
+            <p class="heading">Education</p>
+            <dt class="subheading">Harvey Mudd College, Claremont, CA</dt>
+            <dd class="text">BS in Joint Mathematics and Physics
+              <br/> <b>GPA:</b> 3.802 (High Honors)
+              <br/> Class of 2022
+            </dd>
+            <br/> 
+            <dt class="subheading">St. Francis College, São Paulo, Brazil</dt>
+            <dd class="text">IB diploma
+              <br/> Higher Level: Mathematics, Physics, English
+              <br/> <b>IB Score:</b> 41 (767)
+              <br/> Leadership Positions: Student Body President &amp; MUN Secretary General
+            </dd>
+          </dl>
+          <dl>
+            <p class="heading">Work Experience</p>
+            <dt class="subheading">Engineering Production @ Google</dt>
+            <dd class="text"><u>May 2020 - August 2020</u>
+              <br/> <b>Position:</b> STEP Intern
+              <br/> <b>Tech stack:</b> HTML, CSS, JavaScript, Java
+              <br/> <b>Description:</b> Working with the Engineering Productions team on a web development Capstone project 
+            </dd>
+            <br/> 
+            <dt class="subheading">Computer Science Dept. @ HMC</dt>
+            <dd class="text"><u>May 2019 - August 2019</u>
+              <br/> <b>Position:</b> Research Fellow
+              <br/> <b>Tech stack:</b> Python, Scikit-Learn, Pandas, Seaborn, Numpy
+              <br/> <b>Description:</b> Research and development of machine learning coursework for CS181R - Data Science and Ethics. Created assignments and projects, including an introduction to relevant Python modules, building an ML model, and understanding how various performance metrics asses discrimination and bias in self-learning algorithms.
+            </dd>
+            <br/> 
+            <dt class="subheading">Academic Depts. @ HMC</dt>
+            <dd class="text"><u>September 2019 - Present</u>
+              <br/> <b>Position:</b> Grader &amp; Tutor
+              <br/> <b>Description:</b> Working as a grader and tutor for several courses in the Mathematics, Physics, and Computer Science departments. <b>Fall 2019:</b> CSCI005 - Intro to Computer Science, PHYS023 - Special Relativity.
+              <br/> <b>Spring 2020:</b> PHYS024 - Machanics, MATH073 - Linear Algebra.
+              <br/> <b>Fall2020:</b> PHYS051 - Electromagnetism.
+              <br/> 
+          </dl>
+          <dl>
+            <p class="heading">School Projects</p>
+            <dt class="subheading">5C Hackathon Organizational Team</dt>
+            <dd class="text"><u>September 2019 - May 2020</u>
+              <br/> <b>Description:</b> Developing prompts for the Claremont Colleges' 2020 Hackathon, as well as developing a judging rubric along with our esteemed judges.
+            </dd>
+            <dt class="subheading">Journey to Space</dt>
+            <dd class="text"><u>September 2019 - December 2019</u>
+              <br/> <b>Structures and Aerodynamics Team</b>
+              <br/> <b>Tech Stack:</b> MATLAB, RocketSim
+              <br/> <b>Website:</b><a href="https://sites.google.com/g.hmc.edu/mars"> sites.google.com/g.hmc.edu/mars</a>
+              <br/> Our ambitious goal is to design, analyze, manufacture, and launch a Loki-Dart rocket that will cross the Kármán line, originally set to launch in Spring 2020. Helped build and adapt a predictive model for the trajectory of the rocket, to, among other things, determine optimal thrust curve and rocket mass.
+            </dd>
+          </dl>
+        </div>
+        <div class="column2">
+          <img src="images/me.jpeg" alt="resume-pfp" class="resume-pfp" width="150px">
+          <p class="short-description"><b>Thomas Cintra</b>
+            <br/> STEP EngProd Intern at Google
+            <br/> 
+          </p>
+          <div class="media">
+            <form action="https://github.com/Tcintra" target="_blank">
+              <button type="submit" class="media-btns"><i class="fab fa-github fa-3x"></i></button>
+            </form>
+            <form action="https://www.linkedin.com/in/thomascintra/" target="_blank">
+              <button type="submit" class="media-btns"><i class="fab fa-linkedin fa-3x"></i></button>
+            </form>
+            <form action="https://instagram.com/tncintra" target="_blank">
+              <button type="submit" class="media-btns"><i class="fab fa-instagram-square fa-3x"></i></button>
+            </form>
+          </div>
+          <form action="images/Resume.pdf" download target="_blank">
+            <p class="text" style="font-size: 16px">Download my resume</p>
+            <button type="submit" class="media-btns"><i class="fas fa-file-download fa-3x"></i></button>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>

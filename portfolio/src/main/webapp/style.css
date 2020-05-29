@@ -6,9 +6,14 @@ body {margin: 0;}
   font-family: Raleway, Arial, sans-serif;
 }
 
+.spacing {
+    line-height: 1.5;
+}
+
+/* Website-wide header */
 .header {
-  background-color: #86BBD8; /* Grey background */
-  color: black;
+  background-color: #7C98B3; /* Grey background */
+  color: white;
   padding:20px 10px;
   text-align: center; /* Centered text */
   font-size: 30px; /* Big font size */
@@ -18,8 +23,8 @@ body {margin: 0;}
   top: 0 !important;
 }
 
-/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
-.bio {
+/* Front-page content. The value of the margin-left property should match the value of the sidebar's width property */
+.content {
   margin-left: 200px;
   margin-top: 70px;
   padding: 20px 20px;
@@ -37,7 +42,7 @@ body {margin: 0;}
   height: 100%;
   overflow: auto;
   text-align: center;
-  top: 0;
+  top: 85px;
 }
 
 /* Sidebar links */
@@ -50,7 +55,7 @@ body {margin: 0;}
 
 /* Active/current link */
 .sidebar a.active {
-  background-color: #19647E;
+  background-color: #86BBD8;
   color: white;
 }
 
@@ -60,7 +65,7 @@ body {margin: 0;}
   color: white;
 }
 
-/* On screens that are less than 700px wide, make the sidebar into a topbar */
+/* On screens that are less than 800px wide, make the sidebar into a topbar */
 @media screen and (max-width: 800px) {
   .sidebar {
     width: 100%;
@@ -69,7 +74,7 @@ body {margin: 0;}
     position: fixed;
   }
   .sidebar a {float: left;}
-  .bio {margin-left: 0; margin-top: 100px;}
+  .content {margin-left: 0; margin-top: 100px;}
   .header {left: 0;}
 }
 
@@ -81,21 +86,99 @@ body {margin: 0;}
   }
 }
 
-.background {
+/* Front page text and images formatting. */
+.front-page-row {
   display:flex;
   flex-direction: row;
   text-align: justify;
 }
 
-.background > .LI-profile-badge {
-  flex-shrink: 0;
-  margin-top: 10px;
+.front-page-column2 {
+    flex:0 0 300px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.bg_text + .LI-profile-badge {
+/* LinkedIn padding with background text */
+.front-page-column1 + .front-page-column2 {
     margin-left: 20px;
 }
 
-.spacing {
-    line-height: 1.5;
+/* Resume page formatting */
+.wrapper {
+  display:flex;
+  flex-direction: row;
+}
+
+.column1 {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 75%;
+}
+
+.column2 {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 25%;
+  align-items: center;
+  text-align: center;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.resume-pfp {
+    border-radius: 50%;
+}
+
+.heading {
+    font-size: 20px;
+    color:#637081;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.subheading {
+    font-size: 17px;
+    color: #5090AB;
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.text {
+    font-size: 14px;
+    color: #37392E;
+    font-weight: lighter;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.media {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+.media-btns {
+    padding: 10px;
+    border: none;
+    background: none;
+    display:inline-block;
+    transition: transform .2s; /* Animation */
+}
+
+.media-btns:hover {
+    transform: scale(1.2); /* Enlarge icon on hover */
+}
+
+.list-box {
+    display: flex;
+    flex-direction: row;
+}
+
+ul {
+  list-style-type: square;
 }
