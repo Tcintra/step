@@ -180,5 +180,28 @@ body {margin: 0;}
 }
 
 ul {
-  list-style-type: square;
+  list-style-type: none;
+  list-style-position: inside;
+  padding-left: 0;
+}
+
+.project {
+    flex: 0 0 100%; 
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: justify;
+}
+
+.project-img {
+    flex: 0 0 250px;
+    width: 250px;
+    height: 250px;
+}
+
+.project-text {
+    color: #37392E;
+    font-weight: lighter;
+    font-size: 16px;
+    padding: 10px;
 }
