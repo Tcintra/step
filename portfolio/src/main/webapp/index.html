@@ -10,7 +10,7 @@
   </head>
   <body class="spacing sansserif" style="background-color:#EEF0F2;" onload="getCommentSection()">
     <div id="header" class="header" style="z-index: 1000;">Thomas Nanba Cintra</div>
-    <div id="mySidenav" class="sidebar"> <a href="index.html" class="active">Home</a> <a href="coursework_and_skills.html">Coursework &amp; Skills</a> <a href="projects.html">Projects</a> <a href="resume.html">Resume</a><a href="/comment-section">Servlet</a></div>
+    <div id="mySidenav" class="sidebar"> <a href="index.html" class="active">Home</a> <a href="coursework_and_skills.html">Coursework &amp; Skills</a> <a href="projects.html">Projects</a> <a href="resume.html">Resume</a></div>
     <div id="front-page-content" class="content">
       <div id="front-page-row" class="front-page-row">
         <div class="column1" style="height: auto;">
@@ -22,10 +22,10 @@
             <form action="/comment-section" method="POST">
               <p class="text" style="font-size: 16px">Please leave a comment!</p>
               <h1 id="total"></h1>
-              <input type="text" id="comment" name="comment"><br>
+              <input type="text" name="body"><br>
               <input type="submit" value="submit"/>
-              <ul id="history"></ul>
             </form>
+            <ul id="history"></ul>
           </div>
         </div>
         <div class="column2">

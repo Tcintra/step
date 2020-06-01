@@ -18,20 +18,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class representing the comment section, where users can input their comments.
+ * Class representing an individual comment.
  *
  * <p>Note: The private variables in this class are converted into JSON.
  */
-public class CommentSection {
+public final class Comment {
 
-  /** List of all the comments */
-  private final ArrayList<String> history = new ArrayList<String>();
+  private final long id;
+  private final long timeStamp;
+  private final String body;
 
-  /** The total of the current turn. */
-  private int currentTotal = 0;
-
-  public void logComment(String comment) {
-    currentTotal += 1;
-    history.add(comment);
+  public Comment(long id, String body, long timeStamp) {
+    this.id = id;
+    this.body = body;
+    this.timeStamp = timeStamp;
   }
 }
