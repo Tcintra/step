@@ -13,7 +13,8 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
-
+ 
+import com.google.sps.classes.CommentSection;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import java.util.ArrayList;
@@ -23,22 +24,37 @@ import com.google.gson.Gson;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
+ 
+/** Servlet that returns a comment section. */
+@WebServlet("/comment-section")
 public class DataServlet extends HttpServlet {
-
-  private ArrayList<String> myStrings = new ArrayList<String>( Arrays.asList("Hi", "Sergei", "and", "Lian") );
+ 
+  private CommentSection commentSection = new CommentSection();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-    // Convert the strings ArrayList to JSON
-    String json = convertToJsonUsingGson(myStrings);
-
-    // Send the JSON as the response
-    response.setContentType("application/json;");
+    response.setContentType("application/json");
+    String json = new Gson().toJson(commentSection);
     response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    // Get the input from the form and log it.
+    String comment = getComment(request);
+    commentSection.logComment(comment);
+
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
+  }
+  
+  /** Returns the comment entered by the user */
+  private String getComment(HttpServletRequest request) {
+    // Get the input from the form.
+    String commentString = request.getParameter("comment");
+
+    return commentString;
   }
 
   /**
