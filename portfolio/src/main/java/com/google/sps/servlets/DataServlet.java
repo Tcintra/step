@@ -13,20 +13,40 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
-
+ 
+import com.google.sps.classes.Comment;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.google.gson.Gson;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
+ 
+/** Servlet that returns a comment section. */
+@WebServlet("/comment-section")
 public class DataServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    // Get the input from the form.
+    String body = request.getParameter("body");
+    long timestamp = System.currentTimeMillis();
+    
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("body", body);
+    commentEntity.setProperty("timestamp", timestamp);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+    
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
   }
 }
