@@ -18,13 +18,14 @@
 function getCommentSection(){
   fetch('/load-comments').then(response => response.json()).then((comments) => {
     const totalComments = document.getElementById('total');
-    totalComments.innerText = 0;
+    totalComments.innerText = comments[0].body + " Total Comments";
+    delete comments[0];
 
     const commentHistoryElement = document.getElementById('history');
     comments.forEach((comment) => {
       commentHistoryElement.appendChild(createCommentElement(comment));
     })
-    
+
   });
 }
 
@@ -39,11 +40,4 @@ function createCommentElement(comment) {
   commentElement.appendChild(bodyElement);
 
   return commentElement;
-}
-
-/** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
 }

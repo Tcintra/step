@@ -17,15 +17,24 @@
           <p class="heading" style="padding-top: 10px">About Me</p>
           <p class="text" style="font-size: 16px"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Japanese-Brazilian and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Production team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects.</p>
           <br/>
-          <p class="text" style="font-size: 16px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p>
-          <div id="comments" class="comments-flexbox">
-            <form action="/comment-section" method="POST">
-              <p class="text" style="font-size: 16px">Please leave a comment!</p>
-              <h1 id="total"></h1>
-              <input type="text" name="body"><br>
+          <p class="text" style="font-size: 16px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p><br/>
+          <div id="comment-section" class="comments-flexbox">
+            <p class="heading">Comment Section</p>
+            <p class="text" id="total"></p>
+            <form action="/load-comments" method="POST" class="text">
+              <p style="font-size: 16px">How many comments do you want to see?</p>
+              <input type="number" name="maximumComments">
+              <input type="submit" value="Show Comments">
+            </form>
+            <form action="/comment-section" method="POST" class="text" >
+              <p style="font-size: 16px">Please leave a comment!</p>
+              <input type="text" name="body"><br/>
               <input type="submit" value="submit"/>
             </form>
             <ul id="history"></ul>
+            <form action="/delete-comments" method="POST">
+              <input type="submit" value="Delete all comments">
+            </form>
           </div>
         </div>
         <div class="column2">
