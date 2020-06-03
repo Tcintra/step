@@ -37,16 +37,21 @@ public class DataServlet extends HttpServlet {
 
     // Get the input from the form.
     String body = request.getParameter("body");
+    String name = request.getParameter("name");
+    long rating = Long.parseLong(request.getParameter("rating"));
     long timestamp = System.currentTimeMillis();
     
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("body", body);
+    commentEntity.setProperty("name", name);
     commentEntity.setProperty("timestamp", timestamp);
+    commentEntity.setProperty("rating", rating);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
     
     // Redirect back to the HTML page.
     response.sendRedirect("/index.html");
+    return;
   }
 }

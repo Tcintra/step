@@ -45,16 +45,18 @@ public class LoadCommentsServlet extends HttpServlet {
 
     int count = 0;
     List<Comment> comments = new ArrayList<>();
-    comments.add(new Comment(0, Integer.toString(results.countEntities()), 0));
+    comments.add(new Comment(0, "", Integer.toString(results.countEntities()), 0, 0));
     for (Entity entity : results.asIterable()) {
       if (count == maximumComments) {
         break;
       }
       long id = entity.getKey().getId();
+      String name = (String) entity.getProperty("name");
       String body = (String) entity.getProperty("body");
+      int rating = ((Long)entity.getProperty("rating")).intValue();
       long timestamp = (long) entity.getProperty("timestamp");
 
-      Comment comment = new Comment(id, body, timestamp);
+      Comment comment = new Comment(id, name, body, rating, timestamp);
       comments.add(comment);
       count++;
     }
@@ -63,6 +65,7 @@ public class LoadCommentsServlet extends HttpServlet {
 
     response.setContentType("application/json;");
     response.getWriter().println(gson.toJson(comments));
+    return;
   }
 
   @Override
@@ -70,14 +73,8 @@ public class LoadCommentsServlet extends HttpServlet {
     // Get the input from the form.
     maximumComments = getMaxComments(request);
 
-    // If user input is invalid
-    if (maximumComments == -1) {
-      response.setContentType("text/html");
-      response.getWriter().println("Please enter a non-negative integer.");
-      return;
-    }
-
     response.sendRedirect("/index.html");
+    return;
   }
 
   /** Returns the choice entered by the user, or -1 if the choice was invalid. */
@@ -87,11 +84,15 @@ public class LoadCommentsServlet extends HttpServlet {
 
     // Convert the input to an int.
     int maxCommentsInt;
-    try {
-      maxCommentsInt = Integer.parseInt(maxCommentsString);
-    } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + maxCommentsString);
-      return -1;
+    if (maxCommentsString.equals("30+")) {
+        maxCommentsInt = -1;
+    } else {
+        try {
+          maxCommentsInt = Integer.parseInt(maxCommentsString);
+        } catch (NumberFormatException e) {
+          System.err.println("Could not convert to int: " + maxCommentsString);
+          return -2;
+        }
     }
 
     return maxCommentsInt;
