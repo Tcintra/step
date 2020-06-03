@@ -21,31 +21,40 @@
           <div id="comment-section" name="comments" class="comments-flexbox">
             <p class="heading">Comment Section</p>
             <p class="text" style="font-size: 16px; font-weight: bold;" id="total"></p>
-            <p class="text" id="currentlyDisplaying"></p>
-            <form name="commentSection" action="/load-comments" method="POST" class="text">
-              Change number of comments to display:
-              <select id="maximumComments" name="maximumComments">
-                <option value = "0">0</option>
-                <option value = "5">5</option>
-                <option value = "10" selected>10</option>
-                <option value = "20">20</option>
-                <option value = "30">30+</option>
+            <form>
+              <p class="text"><b>Filter the comment feed!</b></p>
+              On Display:
+              <select id="maximumComments" name="maximumComments" onchange="getCommentSection()">
+                <option value="0">0</option>
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="15">15</option>
+                <option value="20">20+</option>
               </select>
-              <input type="submit" value="Go!">
+              Filter By:
+              <select id="filter" name="filter" onChange="getCommentSection()">
+                <option value="timestamp,DESCENDING" selected>Newest</option>
+                <option value="timestamp,ASCENDING">Oldest</option>
+                <option value="rating,DESCENDING">Highest Rating</option>
+                <option value="rating,ASCENDING">Lowest Rating</option>
+              </select>
             </form>
-            <form action="/comment-section" method="POST">
+            <form>
               <p style="font-size: 16px">Please leave a comment!</p>
-              <p class="text">Enter your name and leave a rating:</p><input type="text" name="name">
-              <select name="rating">
-                <option value = "1">1 :((</option>
-                <option value = "2">2 :(</option>
-                <option value = "3">3 :|</option>
-                <option value = "4">4 :)</option>
-                <option value = "5" selected>5 :))</option>
+              <input type="text" placeholder="Name" name="name" id="name">
+              <select name="rating" id="rating">
+                <option value="1">1 :((</option>
+                <option value="2">2 :(</option>
+                <option value="3">3 :|</option>
+                <option value="4">4 :)</option>
+                <option value="5" selected>5 :))</option>
               </select>
-              <p class="text">Leave your comment:</p><input type="text" name="body"><br/>
-              <input type="submit" value="submit"/>
+              <input type="text" placeholder="Leave your comment here" name="body" id="body">
+              <button onclick="postComment(event)">Post</button>
             </form>
+            <p class="text" style="color: red;" id="injection-error"></p>
+            <p class="text" style="color: red;" id="name-blank"></p>
+            <p class="text" style="color: red;" id="comment-blank"></p>
             <ul id="history"></ul>
           </div>
         </div>
@@ -75,7 +84,7 @@
               <p class="text">Insert admin password to delete all comments</p>
               <input type="password" name="pwd" id="pwd">
               <input type="submit" value="submit">
-              <p class="text" style="color: red;" id="message"></p>
+              <p class="text" style="color: red;" id="incorrect-pwd"></p>
           </form>
         </div>
       </div>

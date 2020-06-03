@@ -16,7 +16,11 @@
  * Fetches the current state of the comment section and builds it in the DOM
 */
 function getCommentSection(){
-  fetch('/load-comments').then(response => response.json()).then((comments) => {
+  const maxComment = document.getElementById('maximumComments').value;
+  const filter = document.getElementById('filter').value;
+  const url = "/load-comments?maximumComments=" + maxComment.toString() + "&" + "filter=" + filter;
+  
+  fetch(url, {method: 'GET'}).then(response => response.json()).then((comments) => {
     const totalComments = document.getElementById('total');
     if (comments[0].body === "1") {
       totalComments.innerText = comments[0].body + " Comment";
@@ -25,10 +29,11 @@ function getCommentSection(){
     }
     delete comments[0];
 
-    const currentlyDisplaying = document.getElementById('currentlyDisplaying');
-    currentlyDisplaying.innerText = "On Display: " + Object.keys(comments).length;
+    var onDisplay = Object.keys(comments).length;
+    document.getElementById('maximumComments').selectedIndex = (onDisplay/5).toString();
 
     const commentHistoryElement = document.getElementById('history');
+    commentHistoryElement.innerHTML = '';
     comments.forEach((comment) => {
       commentHistoryElement.appendChild(createCommentElement(comment));
     })
@@ -53,7 +58,7 @@ function createCommentElement(comment) {
   deleteButtonElement.addEventListener('click', () => {
     // Remove from datastore
     deleteComment(comment);
-    location.reload();
+    getCommentSection();
   });
 
   commentContent.appendChild(headerElement);
@@ -82,8 +87,7 @@ function createCommentHeader(comment) {
 
   ratingElement.innerText = comment.rating + '/5';
 
-  var time = new Date().getTime();
-  var date = new Date(time);
+  var date = new Date(comment.timeStamp);
   dateElement.innerText = date;
 
   headerElement.appendChild(nameElement);
@@ -92,6 +96,17 @@ function createCommentHeader(comment) {
   headerElement.appendChild(dateElement);
 
   return headerElement;
+}
+
+function postComment(event) {
+  event.preventDefault();
+  if (validateComment()) {
+    const params = new URLSearchParams();
+    params.append('name', document.getElementById('name').value);
+    params.append('rating', document.getElementById('rating').value);
+    params.append('body', document.getElementById('body').value);
+    fetch('/new-comment', {method: 'POST', body: params}).then(getCommentSection());
+  }
 }
 
 /** Tells the server to delete one comment. */
@@ -115,9 +130,34 @@ function validatePWD() {
   if (pwd === "commentBonanza") {
     return true;
   } else if (pwd === "") {
-      document.getElementById('message').innerText = "Please enter a password";
+      document.getElementById('incorrect-pwd').innerText = "Please enter a password";
   } else {
-      document.getElementById('message').innerText = "Password Incorrect";
+      document.getElementById('incorrect-pwd').innerText = "Password Incorrect";
   }
   return false;
+}
+
+/** Submits comment if non-empty and if it contains no html, script tags */
+function validateComment() {
+  var body = document.getElementById('body').value;
+  var name = document.getElementById('name').value;
+  // If comment contains any html of javascript don't submit the form
+  if ((body.includes("<html>")) || (body.includes("<script>")) || (name.includes("<html>")) || (name.includes("<script>"))) {
+    document.getElementById('injection-error').innerText = "Please don't inject html or javascript into my website :(";
+    return false;
+  }
+  // If name, body, or both are empty don't submit the form
+  if ((body === "") && (name === "")) {
+    document.getElementById('name-blank').innerText = "Please enter your name";
+    document.getElementById('comment-blank').innerText = "Please enter a comment";
+    return false;
+  } else if (body === "") {
+      document.getElementById('comment-blank').innerText = "Please enter a comment";
+      return false;
+  } else if (name === "") {
+      document.getElementById('name-blank').innerText = "Please enter your name";
+      return false;
+  } else {
+      return true;
+  }
 }

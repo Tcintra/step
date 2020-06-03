@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
 /** Servlet that returns a comment section. */
-@WebServlet("/comment-section")
+@WebServlet("/new-comment")
 public class DataServlet extends HttpServlet {
 
   @Override
@@ -50,8 +50,6 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
     
-    // Redirect back to the HTML page.
-    response.sendRedirect("/index.html");
     return;
   }
 }
