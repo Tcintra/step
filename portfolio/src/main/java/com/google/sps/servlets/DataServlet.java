@@ -13,7 +13,7 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
- 
+
 import com.google.sps.classes.Comment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -27,29 +27,29 @@ import com.google.gson.Gson;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
+
 /** Servlet that returns a comment section. */
 @WebServlet("/new-comment")
 public class DataServlet extends HttpServlet {
 
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    // Get the input from the form.
-    String body = request.getParameter("body");
-    String name = request.getParameter("name");
-    long rating = Long.parseLong(request.getParameter("rating"));
-    long timestamp = System.currentTimeMillis();
-    
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("body", body);
-    commentEntity.setProperty("name", name);
-    commentEntity.setProperty("timestamp", timestamp);
-    commentEntity.setProperty("rating", rating);
+        // Get the input from the form.
+        String body = request.getParameter("body");
+        String name = request.getParameter("name");
+        long rating = Long.parseLong(request.getParameter("rating"));
+        long timestamp = System.currentTimeMillis();
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
+        Entity commentEntity = new Entity("Comment");
+        commentEntity.setProperty("body", body);
+        commentEntity.setProperty("name", name);
+        commentEntity.setProperty("timestamp", timestamp);
+        commentEntity.setProperty("rating", rating);
 
-    return;
-  }
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(commentEntity);
+
+        return;
+    }
 }

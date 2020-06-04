@@ -36,23 +36,23 @@ import java.sql.*;
 @WebServlet("/delete-comments")
 public class DeleteCommentsServlet extends HttpServlet {
 
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-    response.setContentType("text/html;");
-    
-    Query query = new Query("Comment");
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
+        response.setContentType("text/html;");
 
-    for (Entity entity : results.asIterable()) {
-    Key key = entity.getKey();
-    datastore.delete(key);
+        Query query = new Query("Comment");
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
+
+        for (Entity entity: results.asIterable()) {
+            Key key = entity.getKey();
+            datastore.delete(key);
+        }
+
+        // Redirect back to the HTML page.
+        response.sendRedirect("/index.html");
+        return;
     }
-
-    // Redirect back to the HTML page.
-    response.sendRedirect("/index.html");
-    return;
-  }
 }

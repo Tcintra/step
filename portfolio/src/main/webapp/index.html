@@ -17,7 +17,8 @@
           <p class="heading" style="padding-top: 10px">About Me</p>
           <p class="text" style="font-size: 16px"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Japanese-Brazilian and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Production team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects.</p>
           <br/>
-          <p class="text" style="font-size: 16px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p><br/>
+          <p class="text" style="font-size: 16px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p>
+          <br/>
           <div id="comment-section" name="comments" class="comments-flexbox">
             <p class="heading">Comment Section</p>
             <p class="text" style="font-size: 16px;"> Please leave a comment!</p>
@@ -99,10 +100,10 @@
           </form>
           <button onclick="showAdminPwdField()" class="gen-btn delete-all-btn">Delete all Comments</i></button>
           <form id="admin-pwd-field" name="pwdField" action="/delete-comments" method="POST" style="display: none;" onsubmit="return validatePWD()">
-              <p class="text">Insert admin password to delete all comments</p>
-              <input type="password" name="pwd" id="pwd">
-              <input type="submit" value="submit">
-              <p class="text" style="color: red;" id="incorrect-pwd"></p>
+            <p class="text">Insert admin password to delete all comments</p>
+            <input type="password" name="pwd" id="pwd">
+            <input type="submit" value="submit">
+            <p class="text" style="color: red;" id="incorrect-pwd"></p>
           </form>
         </div>
       </div>

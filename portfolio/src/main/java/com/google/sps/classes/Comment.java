@@ -24,17 +24,17 @@ import java.util.List;
  */
 public final class Comment {
 
-  private final long id;
-  private final String name;
-  private final String body;
-  private final int rating;
-  private final long timeStamp;
+    private final long id;
+    private final String name;
+    private final String body;
+    private final int rating;
+    private final long timeStamp;
 
-  public Comment(long id, String name, String body, int rating, long timeStamp) {
-    this.id = id;
-    this.name = name;
-    this.body = body;
-    this.rating = rating;
-    this.timeStamp = timeStamp;
-  }
+    public Comment(long id, String name, String body, int rating, long timeStamp) {
+        this.id = id;
+        this.name = name;
+        this.body = body;
+        this.rating = rating;
+        this.timeStamp = timeStamp;
+    }
 }
