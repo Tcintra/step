@@ -8,7 +8,7 @@
     <script src="https://kit.fontawesome.com/1bb7eb9069.js" crossorigin="anonymous"></script>
     <title>Front Page</title>
   </head>
-  <body class="spacing sansserif" style="background-color:#EEF0F2;" onload="getCommentSection()">
+  <body class="spacing sansserif" style="background-color:#f1f1f1;" onload="getCommentSection()">
     <div id="header" class="header" style="z-index: 1000;">Thomas Nanba Cintra</div>
     <div id="mySidenav" class="sidebar"> <a href="index.html" class="active">Home</a> <a href="coursework_and_skills.html">Coursework &amp; Skills</a> <a href="projects.html">Projects</a> <a href="resume.html">Resume</a></div>
     <div id="front-page-content" name="content" class="content">
@@ -20,41 +20,59 @@
           <p class="text" style="font-size: 16px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p><br/>
           <div id="comment-section" name="comments" class="comments-flexbox">
             <p class="heading">Comment Section</p>
-            <p class="text" style="font-size: 16px; font-weight: bold;" id="total"></p>
-            <form>
-              <p class="text"><b>Filter the comment feed!</b></p>
+            <p class="text" style="font-size: 16px;"> Please leave a comment!</p>
+            <form class="comment-input" style="padding-top: 10px;" spellcheck="false">
+              <div class="name-rating-container">
+                <div>
+                  <input type="text" autocomplete="off" placeholder="Name" name="name" id="name" class="name text">
+                  <div class="line"></div>
+                </div>
+                <div class="select-container" style="top: -2.5px; padding-left: 10px;">
+                  <select name="rating" class="dropdown text" id="rating" style="font-size: 16px;">
+                    <option hidden selected value="0">Rate Me</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+              </div>
+              <span style="margin: 0;">
+                <input type="text" autocomplete="off" class="comment-input comment-body" placeholder="Leave your comment here" name="body" id="body">
+                <div class="line" style="margin-bottom: 0;"></div>
+              </span>
+              <div style="display: flex; flex-direction: row; justify-content: flex-end;">
+                <input type="reset" class="gen-btn cancel-btn" value="CANCEL">
+                <button onclick="postComment(event)" class="gen-btn post-btn">POST</button>
+              </div>
+            </form>
+            <p class="text" style="color: red; display: none;" id="injection-error">Please don't inject html or javascript into my website :(</p>
+            <p class="text" style="color: red; display: none;" id="name-blank">Please enter your name</p>
+            <p class="text" style="color: red; display: none;" id="comment-blank">Please enter a comment</p>
+            <p class="text" style="color: red; display: none;" id="rating-blank">Please enter a rating</p>
+            <p class="heading" style="font-size: 16px" id="total"></p>
+            <form class="text">
               On Display:
-              <select id="maximumComments" name="maximumComments" onchange="getCommentSection()">
-                <option value="0">0</option>
-                <option value="5">5</option>
-                <option value="10" selected>10</option>
-                <option value="15">15</option>
-                <option value="20">20+</option>
-              </select>
+              <div class="select-container">
+                <select id="maximumComments" class="dropdown text" name="maximumComments" onchange="getCommentSection()">
+                  <option value="0">0</option>
+                  <option value="5">5</option>
+                  <option value="10" selected>10</option>
+                  <option value="15">15</option>
+                  <option value="20">20+</option>
+                </select>
+              </div>
               Filter By:
-              <select id="filter" name="filter" onChange="getCommentSection()">
-                <option value="timestamp,DESCENDING" selected>Newest</option>
-                <option value="timestamp,ASCENDING">Oldest</option>
-                <option value="rating,DESCENDING">Highest Rating</option>
-                <option value="rating,ASCENDING">Lowest Rating</option>
-              </select>
+              <div class="select-container">
+                <select id="filter" class="dropdown text" name="filter" onChange="getCommentSection()">
+                  <option value="timestamp,DESCENDING" selected>Newest</option>
+                  <option value="timestamp,ASCENDING">Oldest</option>
+                  <option value="rating,DESCENDING">Highest Rating</option>
+                  <option value="rating,ASCENDING">Lowest Rating</option>
+                </select>
+              </div>
             </form>
-            <form>
-              <p style="font-size: 16px">Please leave a comment!</p>
-              <input type="text" placeholder="Name" name="name" id="name">
-              <select name="rating" id="rating">
-                <option value="1">1 :((</option>
-                <option value="2">2 :(</option>
-                <option value="3">3 :|</option>
-                <option value="4">4 :)</option>
-                <option value="5" selected>5 :))</option>
-              </select>
-              <input type="text" placeholder="Leave your comment here" name="body" id="body">
-              <button onclick="postComment(event)">Post</button>
-            </form>
-            <p class="text" style="color: red;" id="injection-error"></p>
-            <p class="text" style="color: red;" id="name-blank"></p>
-            <p class="text" style="color: red;" id="comment-blank"></p>
             <ul id="history"></ul>
           </div>
         </div>
@@ -79,7 +97,7 @@
             <p class="text" style="font-size: 16px">Download my resume</p>
             <button type="submit" class="media-btns"><i class="fas fa-file-download fa-3x"></i></button>
           </form>
-          <button onclick="showAdminPwdField()">Delete all Comments</i></button>
+          <button onclick="showAdminPwdField()" class="gen-btn delete-all-btn">Delete all Comments</i></button>
           <form id="admin-pwd-field" name="pwdField" action="/delete-comments" method="POST" style="display: none;" onsubmit="return validatePWD()">
               <p class="text">Insert admin password to delete all comments</p>
               <input type="password" name="pwd" id="pwd">

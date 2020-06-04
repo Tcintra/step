@@ -17,6 +17,7 @@
 */
 function getCommentSection(){
   const maxComment = document.getElementById('maximumComments').value;
+  const maxCommentIndex = document.getElementById('maximumComments').selectedIndex;
   const filter = document.getElementById('filter').value;
   const url = "/load-comments?maximumComments=" + maxComment.toString() + "&" + "filter=" + filter;
   
@@ -29,8 +30,7 @@ function getCommentSection(){
     }
     delete comments[0];
 
-    var onDisplay = Object.keys(comments).length;
-    document.getElementById('maximumComments').selectedIndex = (onDisplay/5).toString();
+    document.getElementById('maximumComments').selectedIndex = maxCommentIndex;
 
     const commentHistoryElement = document.getElementById('history');
     commentHistoryElement.innerHTML = '';
@@ -43,28 +43,48 @@ function getCommentSection(){
 /** Creates an element that represents a comment, including its delete button. */
 function createCommentElement(comment) {
   const commentElement = document.createElement('li');
-  commentElement.className = 'comment';
+  commentElement.className = 'comment-element';
 
-  const commentContent = document.createElement('ul');
-  commentContent.className = 'comment-content'
+  const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.className = "far fa-trash-alt media-btns";
+  deleteButtonElement.style.padding = "0px";
+  deleteButtonElement.style.display = "none";
+  deleteButtonElement.addEventListener('click', () => {
+    // Remove from datastore
+    deleteComment(comment);
+  });
+
+  commentElement.addEventListener('mouseenter', () => {
+    deleteButtonElement.style.display = "block";
+  })
+  commentElement.addEventListener('mouseleave', () => {
+    deleteButtonElement.style.display = "none";
+  })
+
+
+  const commentContent = document.createElement('div');
+  commentContent.className = 'comment-content text'
 
   const headerElement = createCommentHeader(comment);
 
   const bodyElement = document.createElement('li');
+  bodyElement.className = 'text';
+  bodyElement.style.fontSize = '15px'
   bodyElement.innerText = comment.body;
 
-  const deleteButtonElement = document.createElement('button');
-  deleteButtonElement.innerText = 'Delete';
-  deleteButtonElement.addEventListener('click', () => {
-    // Remove from datastore
-    deleteComment(comment);
-    getCommentSection();
-  });
+  const dateElement = document.createElement('span');
+  dateElement.className = 'comment-date text';
+
+  var date = new Date(comment.timeStamp);
+  var dateString = date.toString();
+  var pos = dateString.indexOf("GMT")-10;
+  dateElement.innerText = dateString.substring(0, pos);
 
   commentContent.appendChild(headerElement);
   commentContent.appendChild(bodyElement);
-  commentContent.appendChild(deleteButtonElement);
+  commentContent.appendChild(dateElement);
   commentElement.appendChild(commentContent);
+  commentElement.appendChild(deleteButtonElement);
 
   return commentElement;
 }
@@ -75,29 +95,37 @@ function createCommentHeader(comment) {
   headerElement.className = 'comment-header';
   const nameElement = document.createElement('span');
   nameElement.className = 'comment-name';
-  const ratingElement = document.createElement('span');
-  ratingElement.className = 'comment-rating';
-  const dateElement = document.createElement('span');
-  dateElement.className = 'comment-date';
 
   headerElement.style.fontSize = '14px';
 
   nameElement.innerText = comment.name + " - ";
   nameElement.style.fontWeight = 'bold';
 
-  ratingElement.innerText = comment.rating + '/5';
-
-  var date = new Date(comment.timeStamp);
-  dateElement.innerText = date;
-
   headerElement.appendChild(nameElement);
-  headerElement.appendChild(ratingElement);
-  headerElement.appendChild(document.createElement('br'))
-  headerElement.appendChild(dateElement);
 
+  const starFull = document.createElement('button');
+  starFull.className = "fas fa-star rating-btns";
+  const starEmpty = document.createElement('button');
+  starEmpty.className = "far fa-star rating-btns";
+
+  headerElement.appendChild(starFull);
+  const rating = parseInt(comment.rating);
+
+  for (i = 1; i < rating; i++) {
+    headerElement.appendChild(starFull.cloneNode(true));
+  }
+
+  if (rating != 5) {
+    headerElement.appendChild(starEmpty);
+    for (i = 1; i < (5 - rating); i++) {
+      headerElement.appendChild(starEmpty.cloneNode(true));
+    }
+  }
+  
   return headerElement;
 }
 
+/* postComment by with POST request */
 function postComment(event) {
   event.preventDefault();
   if (validateComment()) {
@@ -105,7 +133,7 @@ function postComment(event) {
     params.append('name', document.getElementById('name').value);
     params.append('rating', document.getElementById('rating').value);
     params.append('body', document.getElementById('body').value);
-    fetch('/new-comment', {method: 'POST', body: params}).then(getCommentSection());
+    fetch('/new-comment', {method: 'POST', body: params}).then(location.reload());
   }
 }
 
@@ -113,14 +141,18 @@ function postComment(event) {
 function deleteComment(comment) {
   const params = new URLSearchParams();
   params.append('id', comment.id);
-  fetch('/delete-comment', {method: 'POST', body: params});
+  let response = fetch('/delete-comment', {method: 'POST', body: params}).then(location.reload());
 }
 
 /** Tells the server to show input password field. */
 function showAdminPwdField() {
   var adminField = document.getElementById('admin-pwd-field');
   if (adminField.style.display === "none") {
-    adminField.style.display = "block";
+    adminField.style.display = "inline-block";
+    adminField.style.position = "relative";
+    adminField.style.top = "-10px";
+  } else {
+      adminField.style.display = "none";
   }
 }
 
@@ -141,23 +173,44 @@ function validatePWD() {
 function validateComment() {
   var body = document.getElementById('body').value;
   var name = document.getElementById('name').value;
+  var rating = document.getElementById('rating').value;
+
+  
+  const commentError = document.getElementById('comment-blank');
+  const nameError = document.getElementById('name-blank');
+  const ratingError = document.getElementById('rating-blank');
+  const injectionError = document.getElementById('injection-error');
+
   // If comment contains any html of javascript don't submit the form
   if ((body.includes("<html>")) || (body.includes("<script>")) || (name.includes("<html>")) || (name.includes("<script>"))) {
-    document.getElementById('injection-error').innerText = "Please don't inject html or javascript into my website :(";
+    injectionError.style.display = "block";
     return false;
+  } else {
+      injectionError.style.display = "none";
+
   }
   // If name, body, or both are empty don't submit the form
-  if ((body === "") && (name === "")) {
-    document.getElementById('name-blank').innerText = "Please enter your name";
-    document.getElementById('comment-blank').innerText = "Please enter a comment";
+  if ((body === "") || (name === "") || (rating == 0)) {
+    if (body === "") {
+      commentError.style.display = "block";
+    } else {
+        commentError.style.display = "none";
+    }
+    if (name === "") {
+      nameError.style.display = "block";
+    } else {
+        nameError.style.display = "none";
+    }
+    if (rating == 0) {
+      ratingError.style.display = "block";
+    } else {
+        ratingError.style.display = "none";
+    }
     return false;
-  } else if (body === "") {
-      document.getElementById('comment-blank').innerText = "Please enter a comment";
-      return false;
-  } else if (name === "") {
-      document.getElementById('name-blank').innerText = "Please enter your name";
-      return false;
   } else {
-      return true;
+      commentError.style.display = "none";
+      nameError.style.display = "none";
+      ratingError.style.display = "none";
   }
+  return true;
 }
