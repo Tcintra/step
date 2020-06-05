@@ -20,7 +20,7 @@ function getCommentSection() {
     const maxComment = document.getElementById('maximumComments').value;
     const maxCommentIndex = document.getElementById('maximumComments').selectedIndex;
     const filter = document.getElementById('filter').value;
-    const url = "/load-comments?maximumComments=" + maxComment.toString() + "&" + "filter=" + filter;
+    const url = "/load-comments?maximumComments=" + maxComment.toString() + "&filter=" + filter;
 
     fetch(url, {
         method: 'GET'
@@ -114,13 +114,13 @@ function createCommentHeader(comment) {
     headerElement.appendChild(starFull);
     const rating = parseInt(comment.rating);
 
-    for (i = 1; i < rating; i++) {
+    for (star = 1; star < rating; star++) {
         headerElement.appendChild(starFull.cloneNode(true));
     }
 
     if (rating != 5) {
         headerElement.appendChild(starEmpty);
-        for (i = 1; i < (5 - rating); i++) {
+        for (star = 1; star < (5 - rating); star++) {
             headerElement.appendChild(starEmpty.cloneNode(true));
         }
     }
@@ -245,8 +245,8 @@ function showSlides() {
 
   var dots = document.getElementsByClassName('dot');
    
-  for (i = 0; i < 10; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
+  for (dot = 0; dot < 10; dot++) {
+    dots[dot].className = dots[dot].className.replace(" active", "");
   }
 
   dots[slideIndex-1].className += " active";

@@ -53,6 +53,5 @@ public class DeleteCommentsServlet extends HttpServlet {
 
         // Redirect back to the HTML page.
         response.sendRedirect("/index.html");
-        return;
     }
 }
