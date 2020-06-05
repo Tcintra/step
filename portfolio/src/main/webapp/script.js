@@ -129,28 +129,30 @@ function createCommentHeader(comment) {
 }
 
 /* postComment by with POST request */
-function postComment(event) {
+async function postComment(event) {
     event.preventDefault();
     if (validateComment()) {
         const params = new URLSearchParams();
         params.append('name', document.getElementById('name').value);
         params.append('rating', document.getElementById('rating').value);
         params.append('body', document.getElementById('body').value);
-        fetch('/new-comment', {
+        await fetch('/new-comment', {
             method: 'POST',
             body: params
-        }).then(location.reload());
+        });
+        resetCommentSection();
     }
 }
 
 /** Tells the server to delete one comment. */
-function deleteComment(comment) {
+async function deleteComment(comment) {
     const params = new URLSearchParams();
     params.append('id', comment.id);
-    let response = fetch('/delete-comment', {
+    await fetch('/delete-comment', {
         method: 'POST',
         body: params
-    }).then(location.reload());
+    });
+    resetCommentSection();
 }
 
 /** Tells the server to show input password field. */
@@ -225,7 +227,7 @@ function validateComment() {
 }
 
 var slideIndex = 1;
-window.setInterval(function(){
+var slideInterval = window.setInterval(function(){
   showSlides();
 }, 2500);
 
@@ -254,4 +256,30 @@ function showSlides() {
   if (slideIndex == 11) {slideIndex = 1} 
 }
 
+function nextSlide() {
+  showSlides();
+  resetInterval();
+}
 
+function previousSlide() {
+  slideIndex -= 2;
+  showSlides();
+  resetInterval();
+}
+
+function changeSlide(slide) {
+  slideIndex = slide;
+  showSlides();
+  resetInterval();
+}
+
+function resetInterval() {
+  clearInterval(slideInterval);
+  slideInterval = window.setInterval(function(){
+      showSlides();
+  }, 2500);
+}
+
+async function resetCommentSection() {
+  getCommentSection();
+}

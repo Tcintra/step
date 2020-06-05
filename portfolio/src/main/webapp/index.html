@@ -23,16 +23,20 @@
           <div class="slideshow-container" id="gallery"></div>
           <br>
           <div style="text-align:center">
-            <span class="dot active"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
-            <span class="dot"></span> 
+            <button onclick="previousSlide()" class="slide-btns"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="nextSlide()" class="slide-btns"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div style="text-align:center">
+            <button class="dot active" onclick="changeSlide(1)"></button> 
+            <button class="dot" onclick="changeSlide(2)"></button> 
+            <button class="dot" onclick="changeSlide(3)"></button> 
+            <button class="dot" onclick="changeSlide(4)"></button> 
+            <button class="dot" onclick="changeSlide(5)"></button> 
+            <button class="dot" onclick="changeSlide(6)"></button> 
+            <button class="dot" onclick="changeSlide(7)"></button> 
+            <button class="dot" onclick="changeSlide(8)"></button> 
+            <button class="dot" onclick="changeSlide(9)"></button> 
+            <button class="dot" onclick="changeSlide(10)"></button> 
           </div>
           <div id="comment-section" name="comments" class="comments-flexbox">
             <p class="heading">Comment Section</p>
