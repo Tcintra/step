@@ -16,6 +16,7 @@
  * Fetches the current state of the comment section and builds it in the DOM
  */
 function getCommentSection() {
+    showSlides();
     const maxComment = document.getElementById('maximumComments').value;
     const maxCommentIndex = document.getElementById('maximumComments').selectedIndex;
     const filter = document.getElementById('filter').value;
@@ -222,3 +223,35 @@ function validateComment() {
     }
     return true;
 }
+
+var slideIndex = 1;
+window.setInterval(function(){
+  showSlides();
+}, 2500);
+
+function showSlides() {
+  var gallery = document.getElementById('gallery');
+
+  if (gallery.hasChildNodes()) {
+    gallery.removeChild(gallery.firstChild);
+  }
+
+  var myImg = document.createElement('img');
+  var source = "images/gallery"+slideIndex+".jpg";
+  myImg.src = source;
+  myImg.className = "gallery-img fade";
+  gallery.appendChild(myImg);
+  gallery.style.textAlign = "center";
+
+  var dots = document.getElementsByClassName('dot');
+   
+  for (i = 0; i < 10; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+
+  dots[slideIndex-1].className += " active";
+  slideIndex++;
+  if (slideIndex == 11) {slideIndex = 1} 
+}
+
+

@@ -15,13 +15,28 @@
       <div id="front-page-row" name="row" class="front-page-row">
         <div class="column1" name="column1" style="height: auto;">
           <p class="heading" style="padding-top: 10px">About Me</p>
-          <p class="text" style="font-size: 16px"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Japanese-Brazilian and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Production team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects.</p>
+          <p class="text" style="font-size: 16px"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Brazilian-Japanese and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Production team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects.</p>
           <br/>
           <p class="text" style="font-size: 16px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p>
           <br/>
+          <p class="heading">A Brief Gallery</p>
+          <div class="slideshow-container" id="gallery"></div>
+          <br>
+          <div style="text-align:center">
+            <span class="dot active"></span> 
+            <span class="dot"></span> 
+            <span class="dot"></span> 
+            <span class="dot"></span> 
+            <span class="dot"></span> 
+            <span class="dot"></span> 
+            <span class="dot"></span> 
+            <span class="dot"></span> 
+            <span class="dot"></span> 
+            <span class="dot"></span> 
+          </div>
           <div id="comment-section" name="comments" class="comments-flexbox">
             <p class="heading">Comment Section</p>
-            <p class="text" style="font-size: 16px;"> Please leave a comment!</p>
+            <p class="text" style="font-size: 16px;"> Please leave a comment about what you think! I appreciate any feedback on how to make this website better.</p>
             <form class="comment-input" style="padding-top: 10px;" spellcheck="false">
               <div class="name-rating-container">
                 <div>
@@ -41,7 +56,7 @@
               </div>
               <span style="margin: 0;">
                 <input type="text" autocomplete="off" class="comment-input comment-body" placeholder="Leave your comment here" name="body" id="body">
-                <div class="line" style="margin-bottom: 0;"></div>
+                <div class="line" style="margin-top: 1px; margin-bottom: 0;"></div>
               </span>
               <div style="display: flex; flex-direction: row; justify-content: flex-end;">
                 <input type="reset" class="gen-btn cancel-btn" value="CANCEL">
@@ -52,7 +67,7 @@
             <p class="text" style="color: red; display: none;" id="name-blank">Please enter your name</p>
             <p class="text" style="color: red; display: none;" id="comment-blank">Please enter a comment</p>
             <p class="text" style="color: red; display: none;" id="rating-blank">Please enter a rating</p>
-            <p class="heading" style="font-size: 16px" id="total"></p>
+            <span class="heading" style="font-size: 16px" id="total"></span>
             <form class="text">
               On Display:
               <div class="select-container">
