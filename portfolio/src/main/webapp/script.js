@@ -141,6 +141,9 @@ async function postComment(event) {
             body: params
         });
         resetCommentSection();
+        document.getElementById('body').value = "";
+        document.getElementById('name').value = "";
+        document.getElementById('rating').value = "0";
     }
 }
 
