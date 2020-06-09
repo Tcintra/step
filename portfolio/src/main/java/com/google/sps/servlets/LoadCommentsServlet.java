@@ -18,6 +18,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
@@ -34,26 +35,46 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/load-comments")
 public class LoadCommentsServlet extends HttpServlet {
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Query query = new Query("Comment");
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
+        String[] filter = request.getParameter("filter").split(",");
 
-    List<Comment> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
-      long id = entity.getKey().getId();
-      String body = (String) entity.getProperty("body");
-      long timestamp = (long) entity.getProperty("timestamp");
+        // Not sure how to append sortType[1] to SortDirection method call without converting it to a string
+        if (filter[1].equals("DESCENDING")) {
+            query.addSort(filter[0], SortDirection.DESCENDING);
+        } else {
+            query.addSort(filter[0], SortDirection.ASCENDING);
+        }
 
-      Comment comment = new Comment(id, body, timestamp);
-      comments.add(comment);
+        int maximumComments = Integer.parseInt(request.getParameter("maximumComments"));
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        PreparedQuery results = datastore.prepare(query);
+        List < Entity > resultsList = results.asList(FetchOptions.Builder.withDefaults());
+        List < Comment > comments = new ArrayList < > ();
+
+        if (maximumComments == 20) {
+            maximumComments = resultsList.size();
+        }
+
+        comments.add(new Comment(0, "", Integer.toString(resultsList.size()), 0, 0));
+        for (int i = 0; i < Math.min(maximumComments, resultsList.size()); i++) {
+            Entity entity = resultsList.get(i);
+            long id = entity.getKey().getId();
+            String name = (String) entity.getProperty("name");
+            String body = (String) entity.getProperty("body");
+            int rating = ((Long) entity.getProperty("rating")).intValue();
+            long timestamp = (long) entity.getProperty("timestamp");
+
+            Comment comment = new Comment(id, name, body, rating, timestamp);
+            comments.add(comment);
+        }
+
+        Gson gson = new Gson();
+
+        response.setContentType("application/json;");
+        response.getWriter().println(gson.toJson(comments));
     }
-
-    Gson gson = new Gson();
-
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(comments));
-  }
 }

@@ -14,40 +14,35 @@
 
 package com.google.sps.servlets;
 
-import com.google.sps.classes.Comment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import com.google.gson.Gson;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.sql.*;
 
-/** Servlet that returns a comment section. */
-@WebServlet("/new-comment")
-public class DataServlet extends HttpServlet {
+/** Servlet responsible for deleting one comment. */
+@WebServlet("/delete-comment")
+public class DeleteCommentServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        // Get the input from the form.
-        String body = request.getParameter("body");
-        String name = request.getParameter("name");
-        long rating = Long.parseLong(request.getParameter("rating"));
-        long timestamp = System.currentTimeMillis();
+        long id = Long.parseLong(request.getParameter("id"));
 
-        Entity commentEntity = new Entity("Comment");
-        commentEntity.setProperty("body", body);
-        commentEntity.setProperty("name", name);
-        commentEntity.setProperty("timestamp", timestamp);
-        commentEntity.setProperty("rating", rating);
-
+        Key commentEntityKey = KeyFactory.createKey("Comment", id);
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(commentEntity);
+        datastore.delete(commentEntityKey);
     }
 }
