@@ -31,27 +31,28 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.*;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /** Servlet responsible for deleting all comments. */
 @WebServlet("/delete-comments")
 public class DeleteCommentsServlet extends HttpServlet {
 
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        response.setContentType("text/html;");
+    response.setContentType("text/html;");
 
-        Query query = new Query("Comment");
+    Query query = new Query("Comment");
 
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        PreparedQuery results = datastore.prepare(query);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
 
-        for (Entity entity: results.asIterable()) {
-            Key key = entity.getKey();
-            datastore.delete(key);
-        }
-
-        // Redirect back to the HTML page.
-        response.sendRedirect("/index.html");
+    for (Entity entity: results.asIterable()) {
+      Key key = entity.getKey();
+      datastore.delete(key);
     }
+
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
+  }
 }

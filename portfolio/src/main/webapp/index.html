@@ -8,14 +8,14 @@
     <script src="https://kit.fontawesome.com/1bb7eb9069.js" crossorigin="anonymous"></script>
     <title>Front Page</title>
   </head>
-  <body class="spacing sansserif" style="background-color:#f1f1f1;" onload="getCommentSection()">
+  <body class="spacing sansserif" style="background-color:#f1f1f1;" onload="frontPageLoad()">
     <div id="header" class="header" style="z-index: 1000;">Thomas Nanba Cintra</div>
     <div id="mySidenav" class="sidebar"> <a href="index.html" class="active">Home</a> <a href="coursework_and_skills.html">Coursework &amp; Skills</a> <a href="projects.html">Projects</a> <a href="resume.html">Resume</a></div>
     <div id="front-page-content" name="content" class="content">
       <div id="front-page-row" name="row" class="front-page-row">
         <div class="column1" name="column1" style="height: auto;">
           <p class="heading" style="padding-top: 10px">About Me</p>
-          <p class="text" style="font-size: 16px"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Brazilian-Japanese and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Production team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects.</p>
+          <p class="text" style="font-size: 16px"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Brazilian-Japanese and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Productivity team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects.</p>
           <br/>
           <p class="text" style="font-size: 16px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p>
           <br/>
@@ -40,11 +40,11 @@
           </div>
           <div id="comment-section" name="comments" class="comments-flexbox">
             <p class="heading">Comment Section</p>
-            <p class="text" style="font-size: 16px;"> Please leave a comment about what you think! I appreciate any feedback on how to make this website better.</p>
-            <form class="comment-input" style="padding-top: 10px;" spellcheck="false">
+            <div id="DOMDisplay"></div><br/>
+            <form id="comment-submission-form" class="comment-input" style="padding-top: 10px; display: none;" spellcheck="false">
               <div class="name-rating-container">
                 <div>
-                  <input type="text" autocomplete="off" placeholder="Name" name="name" id="name" class="name text">
+                  <input type="text" autocomplete="off" placeholder="Enter a userName" name="name" id="name" class="name text">
                   <div class="line"></div>
                 </div>
                 <div class="select-container" style="top: -2.5px; padding-left: 10px;">
@@ -93,6 +93,7 @@
                 </select>
               </div>
             </form>
+            <p class="text" style="color: red" id="DeleteError"></p>
             <ul id="history"></ul>
           </div>
         </div>

@@ -12,11 +12,59 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/* 
+ * Run all the onload() functions.
+ */
+function frontPageLoad() {
+  showSlides();
+  getCommentSection();
+  login();
+}
+
+var asyncRequest;
+
+/* 
+ * Run login servlet, check if user is logged in
+ */ 
+function login() {
+  try
+    {
+      // Use AJAX to communicate asynchronously with login servlet
+      asyncRequest = new XMLHttpRequest();
+      // When the state of the request changes, run stateChange() function
+      asyncRequest.addEventListener("readystatechange", stateChange, false);
+      asyncRequest.open('GET', '/login', true);
+      asyncRequest.send(null);
+    }
+    catch(exception)
+   {
+    alert("Request failed");
+   }
+}
+
+/* 
+ * When asyncRequest is done, display the servlet response on the DOM
+ */ 
+function stateChange() {
+  if (asyncRequest.readyState == 4 && asyncRequest.status == 200) {
+    var toWrite = document.getElementById("DOMDisplay");
+    var commentSubmissionForm = document.getElementById("comment-submission-form");
+    // If user is logged in, display comment submission form
+    if (asyncRequest.responseText.toString().includes("You are logged in")) {
+      commentSubmissionForm.style.display = "block";
+    } else {
+      commentSubmissionForm.style.display = "none";
+    }
+    // Display response from servlet
+    toWrite.innerHTML = asyncRequest.responseText;
+  }
+}
+
+
 /*
  * Fetches the current state of the comment section and builds it in the DOM
  */
 function getCommentSection() {
-    showSlides();
     const maxComment = document.getElementById('maximumComments').value;
     const maxCommentIndex = document.getElementById('maximumComments').selectedIndex;
     const filter = document.getElementById('filter').value;
@@ -154,7 +202,11 @@ async function deleteComment(comment) {
     await fetch('/delete-comment', {
         method: 'POST',
         body: params
+    }).then(response => response.text()).then((responseText) => {
+        var toWrite = document.getElementById("DeleteError");
+        toWrite.innerText = responseText;
     });
+
     resetCommentSection();
 }
 
@@ -265,7 +317,11 @@ function nextSlide() {
 }
 
 function previousSlide() {
-  slideIndex -= 2;
+  if (slideIndex == 1) {
+    slideIndex = 9
+  } else {
+      
+  }
   showSlides();
   resetInterval();
 }
