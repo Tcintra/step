@@ -22,6 +22,9 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,18 +34,42 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.*;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JOptionPane;
 
 /** Servlet responsible for deleting one comment. */
 @WebServlet("/delete-comment")
 public class DeleteCommentServlet extends HttpServlet {
 
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        long id = Long.parseLong(request.getParameter("id"));
+    response.setContentType("text/html;");
+    PrintWriter out = response.getWriter();
 
-        Key commentEntityKey = KeyFactory.createKey("Comment", id);
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.delete(commentEntityKey);
+    long id = Long.parseLong(request.getParameter("id"));
+    Key commentEntityKey = KeyFactory.createKey("Comment", id);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    
+    try {
+      Entity comment = datastore.get(commentEntityKey);
+
+      // Check if user is logged in and get their email
+      UserService userService = UserServiceFactory.getUserService();
+      if (userService.isUserLoggedIn()) {
+        String email = userService.getCurrentUser().getEmail();
+        if (email.equals(comment.getProperty("email"))) {
+          datastore.delete(commentEntityKey);
+        } else {
+            out.println("This comment is not yours to delete!");
+            return;
+        } 
+      } else {
+          out.println("Please login to delete comments");
+          return;
+      }
+    } catch(EntityNotFoundException e) {
+        return;
     }
+  }
 }

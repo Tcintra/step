@@ -18,6 +18,8 @@ import com.google.sps.classes.Comment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import java.util.ArrayList;
@@ -28,26 +30,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns a comment section. */
+/** Servlet that posts a new comment. */
 @WebServlet("/new-comment")
 public class DataServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      
+      // Check if user is logged in and get their email
+      UserService userService = UserServiceFactory.getUserService();
+      String email = userService.getCurrentUser().getEmail();
 
-        // Get the input from the form.
-        String body = request.getParameter("body");
-        String name = request.getParameter("name");
-        long rating = Long.parseLong(request.getParameter("rating"));
-        long timestamp = System.currentTimeMillis();
+      // Only logged-in users can post comments
+      if (!userService.isUserLoggedIn()) {
+        response.sendRedirect("/index.html");
+        return;
+      }
+      // Get the input from the form.
+      String body = request.getParameter("body");
+      String name = request.getParameter("name");
+      long rating = Long.parseLong(request.getParameter("rating"));
+      long timestamp = System.currentTimeMillis();
 
-        Entity commentEntity = new Entity("Comment");
-        commentEntity.setProperty("body", body);
-        commentEntity.setProperty("name", name);
-        commentEntity.setProperty("timestamp", timestamp);
-        commentEntity.setProperty("rating", rating);
+      Entity commentEntity = new Entity("Comment");
+      commentEntity.setProperty("body", body);
+      commentEntity.setProperty("name", name);
+      commentEntity.setProperty("timestamp", timestamp);
+      commentEntity.setProperty("rating", rating);
+      commentEntity.setProperty("email", email);
 
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(commentEntity);
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      datastore.put(commentEntity);
     }
 }
