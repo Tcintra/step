@@ -16,49 +16,42 @@ package com.google.sps.servlets;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.Gson;
+import com.google.sps.classes.Image;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.sql.*;
-import static javax.swing.JOptionPane.showMessageDialog;
+// Libraries for debugging
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.BucketInfo;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
+import com.google.api.gax.paging.Page;
 
-/** Servlet responsible for deleting all comments. */
-@WebServlet("/delete-comments")
-public class DeleteCommentsServlet extends HttpServlet {
+/** Servlet responsible for listing images. */
+@WebServlet("/auth-implicit")
+public class AuthImplicitServlet extends HttpServlet {
 
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      // If you don't specify credentials when constructing the client, the client library will
+      // look for credentials via the environment variable GOOGLE_APPLICATION_CREDENTIALS.
+      Storage storage = StorageOptions.getDefaultInstance().getService();
+      response.setContentType("text/html;");
 
-    response.setContentType("text/html;");
-
-    Query query = new Query("Comment");
-
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
-
-    // Check if user is an admin
-    UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserAdmin()) {
-      for (Entity entity: results.asIterable()) {
-        Key key = entity.getKey();
-        datastore.delete(key);
+      response.getWriter().println("Buckets:");
+      Page<Bucket> buckets = storage.list();
+      for (Bucket bucket : buckets.iterateAll()) {
+        response.getWriter().println(bucket.toString());
       }
     }
-
-    // Redirect back to the HTML page.
-    response.sendRedirect("/index.html");
-  }
 }

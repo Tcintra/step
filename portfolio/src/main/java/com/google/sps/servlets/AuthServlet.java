@@ -48,12 +48,16 @@ public class AuthServlet extends HttpServlet {
     if (userService.isUserLoggedIn()) {
       String logoutUrl = userService.createLogoutURL("/index.html");
       String userEmail = userService.getCurrentUser().getEmail();
-      out.println("You are logged in with " + userEmail + ". Leave a comment below, or logout <a href=\"" + logoutUrl + "\">here</a>.");
+      if (userService.isUserAdmin()) {
+        out.println("You are an admin logged in with " + userEmail + ". Leave a comment/image below, or logout <a href=\"" + logoutUrl + "\">here</a>.");
+      } else {
+          out.println("You are logged in with " + userEmail + ". Leave a comment/image below, or logout <a href=\"" + logoutUrl + "\">here</a>.");
+      }
     } // Otherwise, display loginURL
     else {
       String redirectAfterLogin = "/index.html";
       String loginUrl = userService.createLoginURL(redirectAfterLogin);
-      out.println("To leave a comment, please login <a href=\"" + loginUrl + "\">here</a> first. I appreciate any feedback on how to make this website better!");
+      out.println("To leave a comment/image, please login <a href=\"" + loginUrl + "\">here</a> first. I appreciate any feedback on how to make this website better!");
     }
   }
 }

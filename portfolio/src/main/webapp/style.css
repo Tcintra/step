@@ -475,3 +475,10 @@ ul {
 @media only screen and (max-width: 300px) {
   .text {font-size: 11px}
 }
+
+.image-upload-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: left;
+}

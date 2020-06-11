@@ -22,8 +22,6 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,29 +34,25 @@ import java.sql.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /** Servlet responsible for deleting all comments. */
-@WebServlet("/delete-comments")
-public class DeleteCommentsServlet extends HttpServlet {
+@WebServlet("/delete-images")
+public class DeleteImagesServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     response.setContentType("text/html;");
 
-    Query query = new Query("Comment");
+    Query query = new Query("Image");
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Check if user is an admin
-    UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserAdmin()) {
-      for (Entity entity: results.asIterable()) {
-        Key key = entity.getKey();
-        datastore.delete(key);
-      }
+    for (Entity entity: results.asIterable()) {
+      Key key = entity.getKey();
+      datastore.delete(key);
     }
 
     // Redirect back to the HTML page.
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/gallery.html");
   }
 }

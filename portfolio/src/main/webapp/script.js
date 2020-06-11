@@ -18,21 +18,60 @@
 function frontPageLoad() {
   showSlides();
   getCommentSection();
-  login();
+  loginFP();
+}
+
+/* 
+ * Run all the onload() functions.
+ */
+function galleryLoad() {
+  loginGallery();
+  fetchBlobstoreUrlAndShowForm();
+  generateImageGallery();
+}
+
+function fetchBlobstoreUrlAndShowForm() {
+  fetch('/blobstore')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.getElementById('image-submission-form');
+        messageForm.action = imageUploadUrl;
+      });
 }
 
 var asyncRequest;
 
 /* 
- * Run login servlet, check if user is logged in
+ * Run login servlet, check if user is logged in and edit the front page accordingly
  */ 
-function login() {
+function loginFP() {
   try
     {
       // Use AJAX to communicate asynchronously with login servlet
       asyncRequest = new XMLHttpRequest();
       // When the state of the request changes, run stateChange() function
-      asyncRequest.addEventListener("readystatechange", stateChange, false);
+      asyncRequest.addEventListener("readystatechange", stateChangeFP, false);
+      asyncRequest.open('GET', '/login', true);
+      asyncRequest.send(null);
+    }
+    catch(exception)
+   {
+    alert("Request failed");
+   }
+}
+
+/* 
+ * Run login servlet, check if user is logged in and edit the gallery page accordingly
+ */ 
+function loginGallery() {
+  try
+    {
+      // Use AJAX to communicate asynchronously with login servlet
+      asyncRequest = new XMLHttpRequest();
+      // When the state of the request changes, run stateChange() function
+      asyncRequest.addEventListener("readystatechange", stateChangeGallery, false);
       asyncRequest.open('GET', '/login', true);
       asyncRequest.send(null);
     }
@@ -45,21 +84,50 @@ function login() {
 /* 
  * When asyncRequest is done, display the servlet response on the DOM
  */ 
-function stateChange() {
+function stateChangeFP() {
   if (asyncRequest.readyState == 4 && asyncRequest.status == 200) {
-    var toWrite = document.getElementById("DOMDisplay");
+    var homePageMsg = document.getElementById("DOMDisplay");
     var commentSubmissionForm = document.getElementById("comment-submission-form");
+    var deleteAllbtn = document.getElementById("delete-all");
     // If user is logged in, display comment submission form
     if (asyncRequest.responseText.toString().includes("You are logged in")) {
       commentSubmissionForm.style.display = "block";
+      deleteAllbtn.style.display = "none";
+    } else if (asyncRequest.responseText.toString().includes("You are an admin")) {
+      commentSubmissionForm.style.display = "block";
+      deleteAllbtn.style.display = "block";
     } else {
       commentSubmissionForm.style.display = "none";
+      deleteAllbtn.style.display = "none";
     }
     // Display response from servlet
-    toWrite.innerHTML = asyncRequest.responseText;
+    homePageMsg.innerHTML = asyncRequest.responseText;
   }
 }
 
+/* 
+ * When asyncRequest is done, display the servlet response on the DOM
+ */ 
+function stateChangeGallery() {
+  if (asyncRequest.readyState == 4 && asyncRequest.status == 200) {
+    var galleryMsg = document.getElementById("galleryLoginMsg");
+    var imageSubmissionForm = document.getElementById("image-submission-form");
+    var deleteAllbtn = document.getElementById("delete-all-imgs");
+    // If user is logged in, display comment submission form
+    if (asyncRequest.responseText.toString().includes("You are logged in")) {
+      imageSubmissionForm.style.display = "block";
+      deleteAllbtn.style.display = "none";
+    } else if (asyncRequest.responseText.toString().includes("You are an admin")) {
+      imageSubmissionForm.style.display = "block";
+      deleteAllbtn.style.display = "block";
+    } else {
+      imageSubmissionForm.style.display = "none";
+      deleteAllbtn.style.display = "none";
+    }
+    // Display response from servlet
+    galleryMsg.innerHTML = asyncRequest.responseText;
+  }
+}
 
 /*
  * Fetches the current state of the comment section and builds it in the DOM
@@ -210,31 +278,6 @@ async function deleteComment(comment) {
     resetCommentSection();
 }
 
-/** Tells the server to show input password field. */
-function showAdminPwdField() {
-    var adminField = document.getElementById('admin-pwd-field');
-    if (adminField.style.display === "none") {
-        adminField.style.display = "inline-block";
-        adminField.style.position = "relative";
-        adminField.style.top = "-10px";
-    } else {
-        adminField.style.display = "none";
-    }
-}
-
-/** Deletes all comments if password is correct. */
-function validatePWD() {
-    var pwd = document.getElementById('pwd').value;
-    if (pwd === "commentBonanza") {
-        return true;
-    } else if (pwd === "") {
-        document.getElementById('incorrect-pwd').innerText = "Please enter a password";
-    } else {
-        document.getElementById('incorrect-pwd').innerText = "Password Incorrect";
-    }
-    return false;
-}
-
 /** Submits comment if non-empty and if it contains no html, script tags */
 function validateComment() {
     var body = document.getElementById('body').value;
@@ -341,4 +384,39 @@ function resetInterval() {
 
 async function resetCommentSection() {
   getCommentSection();
+}
+
+
+/*
+ * Fetches information from the Image Servlet and displays images on the DOM
+ */
+function generateImageGallery() {
+    const url = "/load-images";
+
+    fetch(url, {
+        method: 'GET'
+    }).then(response => response.json()).then((images) => {
+        const imageGallery = document.getElementById('image-gallery');
+        imageGallery.innerHTML = '';
+        images.forEach((image) => {
+            imageGallery.appendChild(createImage(image));
+        })
+    });
+}
+
+/** Creates an element that represents an image, including its caption. */
+function createImage(image) {
+    const imageElement = document.createElement('li');
+    imageElement.className = 'image-element';
+
+    const imageContent = document.createElement('img');
+    imageContent.src = image.url;
+
+    const caption = document.createElement('p');
+    caption.innerHTML = "<b>Caption:</b> " + image.caption;
+
+    imageElement.appendChild(imageContent);
+    imageElement.appendChild(caption);
+
+    return imageElement;
 }
