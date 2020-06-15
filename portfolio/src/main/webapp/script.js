@@ -420,3 +420,10 @@ function createImage(image) {
 
     return imageElement;
 }
+
+/** Creates a map and adds it to the page. */
+function initMap() {
+  const map = new google.maps.Map(
+      document.getElementById('map'), {mapTypeId: 'satellite',
+      center: {lat: 37.422, lng: -122.084}, zoom: 16});
+}

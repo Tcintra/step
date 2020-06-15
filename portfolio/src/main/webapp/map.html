@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel='icon' href='images/favicon.png' type='image/x-icon'/ >
+    <script src="script.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://kit.fontawesome.com/1bb7eb9069.js" crossorigin="anonymous"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPKWIOcOGpjrIfWbDlv0yrh070mH3dFBw&callback=initMap" type="text/javascript"></script>
+    <title>Map</title>
+  </head>
+  <body class="spacing sansserif" style="background-color:#EEF0F2;" onload="initMap();">
+    <div id="header" class="header" style="z-index: 1000;">Thomas Nanba Cintra</div>
+    <div id="mySidenav" class="sidebar"> <a href="index.html">Home</a> <a href="coursework_and_skills.html">Coursework &amp; Skills</a> <a href="projects.html">Projects</a> <a href="resume.html">Resume</a><a href="gallery.html">User Gallery</a><a href="map.html" class="active">Maps</a></div>
+    <div id="projects-content" class="content">
+      <div id="projects-row" class="wrapper">
+        <div class="column1" style="padding-top: 10px;">
+          <div id="map"></div>
+        </div>
+        <div class="column2">
+          <img src="images/me.jpeg" alt="resume-pfp" class="resume-pfp" width="150px">
+          <p class="short-description"><b>Thomas Cintra</b>
+            <br/> STEP EngProd Intern at Google
+            <br/> 
+          </p>
+          <div class="media">
+            <form action="https://github.com/Tcintra" target="_blank">
+              <button type="submit" class="media-btns"><i class="fab fa-github fa-3x"></i></button>
+            </form>
+            <form action="https://www.linkedin.com/in/thomascintra/" target="_blank">
+              <button type="submit" class="media-btns"><i class="fab fa-linkedin fa-3x"></i></button>
+            </form>
+            <form action="https://instagram.com/tncintra" target="_blank">
+              <button type="submit" class="media-btns"><i class="fab fa-instagram-square fa-3x"></i></button>
+            </form>
+          </div>
+          <form action="images/Resume.pdf" download target="_blank">
+            <p class="text" style="font-size: 16px">Download my resume</p>
+            <button type="submit" class="media-btns"><i class="fas fa-file-download fa-3x"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
