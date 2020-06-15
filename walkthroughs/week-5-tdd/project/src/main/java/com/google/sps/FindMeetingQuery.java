@@ -24,42 +24,42 @@ import java.util.Set;
 
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    long meetingDuration = request.getDuration();
+
     Collection<String> requiredAttendees = request.getAttendees();
     Collection<String> optionalAttendees = request.getOptionalAttendees();
     Collection<TimeRange> blockedTimes = new HashSet<>();
     Collection<TimeRange> optionalBlockedTimes = new HashSet<>();
     Collection<TimeRange> timesToAdd = new HashSet<>();
-
-    // If the meeting is longer than a day, then return empty list
-    if (meetingDuration > TimeRange.WHOLE_DAY.duration()) {
-        List<TimeRange> availableTimes = new ArrayList<TimeRange>(timesToAdd);
-        return availableTimes;
-    }
+    Collection<TimeRange> optionalTimesToAdd = new HashSet<>();
     
-    if (!events.isEmpty()) {
-      // For each event, check if anyone attending the request is also attending that event.
-      for (Event event : events) {
+    if ((requiredAttendees.isEmpty()) && (request.getDuration() < TimeRange.WHOLE_DAY.duration())) {
+        if (!optionalAttendees.isEmpty()) {
+            timesToAdd.add(TimeRange.WHOLE_DAY);
+        }
+    }
+
+    // For each event, check if anyone attending the request is also attending that event.
+    for (Event event : events) {
         Set<String> intersection = new HashSet<String>(requiredAttendees);
-        Set<String> optionalIntersection = new HashSet<String>(requiredAttendees);
+        Set<String> optionalIntersection = new HashSet<String>(optionalAttendees);
         intersection.retainAll(event.getAttendees());
         optionalIntersection.retainAll(event.getAttendees());
 
         // If one or more requiredAttendees are attending this event, then add it to blockedTimes
         // Otherwise, if any optional attendees are attending this event, then add it to optionalBlockedTimes
         if (!intersection.isEmpty()) {
-          blockedTimes.add(event.getWhen());
-        } else if (!optionalIntersection.isEmpy()) {
+            blockedTimes.add(event.getWhen());
+        } else if (!optionalIntersection.isEmpty()) {
             optionalBlockedTimes.add(event.getWhen());
         }
-      }
+    }
 
-      // Get available times from helper methods
-      timesToAdd = addTimes(timesToAdd, blockedTimes, meetingDuration);
-    
-    } else {
-        // If no one in the required attendees is attending any event in events, then return the whole day
-        timesToAdd.add(TimeRange.WHOLE_DAY);
+    // Get available times from helper methods
+    timesToAdd = addTimes(timesToAdd, blockedTimes, request.getDuration());
+
+    if (!optionalAttendees.isEmpty()) {
+        optionalTimesToAdd = addTimes(optionalTimesToAdd, optionalBlockedTimes, request.getDuration());
+        timesToAdd = checkForOptionalAttendees(timesToAdd, optionalTimesToAdd, request.getDuration(), requiredAttendees.isEmpty());
     }
 
     // Return appropriate timeranges, or an empty array if none
@@ -79,7 +79,9 @@ public final class FindMeetingQuery {
     
 
     if (blockedTimeLine.isEmpty()) {
-        timesToAdd.add(TimeRange.WHOLE_DAY);
+        if (meetingDuration <= TimeRange.WHOLE_DAY.duration()) {
+            timesToAdd.add(TimeRange.WHOLE_DAY);
+        }
     } else {
         // Go through all the blocked times, add non-blocked periods to timesToAdd
         for (int blockIndex = 0; blockIndex < blockedTimesArrayList.size()+1; blockIndex++) {
@@ -132,7 +134,7 @@ public final class FindMeetingQuery {
     return timesToAdd;
   }
 
-  /* Get a sorted collection of all blocked ranges, accounting for nested and overlapping blocks */
+  /* Get a sorted collection of all blocked ranges, removing nested and overlapping blocks */
   private Collection<TimeRange> getBlockedTimeline(Collection<TimeRange> blockedTimes) {
 
     ArrayList<Integer> startTimes = new ArrayList<>();
@@ -181,6 +183,7 @@ public final class FindMeetingQuery {
             freeness++;
         }
 
+        // If no event is "open", then create a new timeblock
         if (freeness == 0) {
             TimeRange newTimeBlock = TimeRange.fromStartEnd(currentStart, currentEnd, false);
             blockedTimeline.add(newTimeBlock);
@@ -190,5 +193,40 @@ public final class FindMeetingQuery {
     }
 
     return blockedTimeline;
+  }
+
+  private Collection<TimeRange> checkForOptionalAttendees(Collection<TimeRange> timesToAdd, Collection<TimeRange> optionalTimesToAdd, long meetingDuration, boolean noRequiredAttendees) {
+    
+    Collection<TimeRange> preferredTimes = new HashSet<>();
+
+    // Loop through timesToAdd and check if optional attendees fit in any of the periods
+    for (TimeRange period : timesToAdd) {
+        for (TimeRange optionalPeriod : optionalTimesToAdd) {
+            // If there is a possible overlap, create the biggest timerange contained in both
+            // periods, if its long enough for the meeting, add it to preferredTimes.
+            if (period.overlaps(optionalPeriod)) {
+                int start = Math.max(period.start(), optionalPeriod.start());
+                int end = Math.min(period.end(), optionalPeriod.end());
+                TimeRange preferredTime;
+                if (end == TimeRange.END_OF_DAY) {
+                    preferredTime = TimeRange.fromStartEnd(start, end, true);
+                } else {
+                    preferredTime = TimeRange.fromStartEnd(start, end, false);
+                }
+
+                if (preferredTime.duration() >= meetingDuration) {
+                    preferredTimes.add(preferredTime);
+                }
+
+            }
+        }
+    }
+
+    // If there are no required attendees, return whatever preferredTimes contains
+    if ((!preferredTimes.isEmpty()) || (noRequiredAttendees == true)) {
+        return preferredTimes;
+    }
+
+    return timesToAdd;
   }
 }
