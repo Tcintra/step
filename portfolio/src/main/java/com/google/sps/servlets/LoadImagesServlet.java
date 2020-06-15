@@ -45,8 +45,8 @@ public class LoadImagesServlet extends HttpServlet {
         List < Entity > resultsList = results.asList(FetchOptions.Builder.withDefaults());
         List < Image > images = new ArrayList < > ();
 
-        for (int result = 0; result < resultsList.size(); result++) {
-            Entity entity = resultsList.get(result);
+        for (int i = 0; i < resultsList.size(); i++) {
+            Entity entity = resultsList.get(i);
             long id = entity.getKey().getId();
             String url = (String) entity.getProperty("imageUrl");
             String caption = (String) entity.getProperty("caption");

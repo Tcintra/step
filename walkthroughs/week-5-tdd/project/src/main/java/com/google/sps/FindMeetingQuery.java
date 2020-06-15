@@ -84,7 +84,7 @@ public final class FindMeetingQuery {
         }
     } else {
         // Go through all the blocked times, add non-blocked periods to timesToAdd
-        for (int blockIndex = 0; blockIndex < blockedTimesArrayList.size()+1; blockIndex++) {
+        for (int blockIndex = 0; blockIndex <= blockedTimesArrayList.size(); blockIndex++) {
             int start;
             int end;
             TimeRange toAdd;
