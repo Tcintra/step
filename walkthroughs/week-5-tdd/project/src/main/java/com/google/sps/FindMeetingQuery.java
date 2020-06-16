@@ -23,13 +23,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class FindMeetingQuery {
-  public Collection < TimeRange > query(Collection < Event > events, MeetingRequest request) {
+  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
 
-    Collection < String > requiredAttendees = request.getAttendees();
-    Collection < String > optionalAttendees = request.getOptionalAttendees();
-    Collection < TimeRange > blockedTimes = new HashSet < > ();
-    Collection < TimeRange > timesToAdd = new HashSet < > ();
-    Collection < Event > optionalEvents = new HashSet < > ();
+    Collection<String> requiredAttendees = request.getAttendees();
+    Collection<String> optionalAttendees = request.getOptionalAttendees();
+    Collection<TimeRange> blockedTimes = new HashSet<> ();
+    Collection<TimeRange> timesToAdd = new HashSet<> ();
+    Collection<Event> optionalEvents = new HashSet<> ();
 
     // EDGE CASE
     if ((requiredAttendees.isEmpty()) && (request.getDuration() < TimeRange.WHOLE_DAY.duration())) {
@@ -40,8 +40,8 @@ public final class FindMeetingQuery {
 
     // For each event, check if anyone attending the request is also attending that event.
     for (Event event: events) {
-      Set < String > intersection = new HashSet < String > (requiredAttendees);
-      Set < String > optionalIntersection = new HashSet < String > (optionalAttendees);
+      Set<String> intersection = new HashSet<String> (requiredAttendees);
+      Set<String> optionalIntersection = new HashSet<String> (optionalAttendees);
       intersection.retainAll(event.getAttendees());
       optionalIntersection.retainAll(event.getAttendees());
 
@@ -55,27 +55,27 @@ public final class FindMeetingQuery {
     }
 
     // Get continuous timeline of blocked events
-    Collection < TimeRange > blockedTimeLine = process(blockedTimes);
+    Collection<TimeRange> blockedTimeLine = process(blockedTimes);
     // Get available times from helper methods
     timesToAdd = addTimes(blockedTimeLine, request.getDuration());
 
     // If there are optional attendees, optimize the schedule
     if (!optionalAttendees.isEmpty()) {
-      timesToAdd = bruteForce(timesToAdd, optionalEvents, request.getDuration(), optionalAttendees, requiredAttendees.isEmpty());
+      timesToAdd = optimizeForOptionalAttendees(timesToAdd, optionalEvents, request.getDuration(), optionalAttendees, requiredAttendees.isEmpty());
     }
 
     // Return appropriate timeranges, or an empty array if none
-    List < TimeRange > availableTimes = new ArrayList < TimeRange > (timesToAdd);
+    List<TimeRange> availableTimes = new ArrayList<TimeRange> (timesToAdd);
     Collections.sort(availableTimes, TimeRange.ORDER_BY_START);
     return availableTimes;
   }
 
   /* Return all the times that are NOT blocked, and are long enough for the meeting */
-  private Collection < TimeRange > addTimes(Collection < TimeRange > blockedTimeLine, long meetingDuration) {
+  private Collection<TimeRange> addTimes(Collection<TimeRange> blockedTimeLine, long meetingDuration) {
 
-    Collection < TimeRange > timesToAdd = new HashSet < > ();
+    Collection<TimeRange> timesToAdd = new HashSet<> ();
     // Create arraylist so we can index into it
-    ArrayList < TimeRange > blockedTimesArrayList = new ArrayList < TimeRange > (blockedTimeLine);
+    ArrayList<TimeRange> blockedTimesArrayList = new ArrayList<TimeRange> (blockedTimeLine);
     // Order the blockedTimeLine by the events that happen first
     Collections.sort(blockedTimesArrayList, TimeRange.ORDER_BY_START);
 
@@ -126,7 +126,7 @@ public final class FindMeetingQuery {
         toAdd = TimeRange.fromStartEnd(start, end, (blockIndex == blockedTimesArrayList.size()));
 
         // Make sure the non-blocked period is long enough for the meeting request
-        if (toAdd.duration() >= meetingDuration) {
+        if (toAdd.duration()>= meetingDuration) {
           timesToAdd.add(toAdd);
         }
       }
@@ -136,11 +136,11 @@ public final class FindMeetingQuery {
   }
 
   /* Takes in a set of timeranges and parses them. Return a continuous, disjoint timeline of the events */
-  private Collection < TimeRange > process(Collection < TimeRange > blockedTimes) {
+  private Collection<TimeRange> process(Collection<TimeRange> blockedTimes) {
 
-    ArrayList < Integer > startTimes = new ArrayList < > ();
-    ArrayList < Integer > endTimes = new ArrayList < > ();
-    Collection < TimeRange > blockedTimeline = new HashSet < > ();
+    ArrayList<Integer> startTimes = new ArrayList<> ();
+    ArrayList<Integer> endTimes = new ArrayList<> ();
+    Collection<TimeRange> blockedTimeline = new HashSet<> ();
 
     // Get the start and end of all relevant events
     for (TimeRange blockedTime: blockedTimes) {
@@ -170,13 +170,13 @@ public final class FindMeetingQuery {
 
       // Check whether an event is "ending" or "starting".
       if (endTimes.get(0) <= startTimes.get(0)) {
-        if (endTimes.get(0) >= currentEnd) {
+        if (endTimes.get(0)>= currentEnd) {
           currentEnd = endTimes.get(0);
         }
         endTimes.remove(0);
         freeness--;
 
-      } else if (endTimes.get(0) > startTimes.get(0)) {
+      } else if (endTimes.get(0)> startTimes.get(0)) {
         if (startTimes.get(0) <= currentStart) {
           currentStart = startTimes.get(0);
         }
@@ -197,10 +197,10 @@ public final class FindMeetingQuery {
   }
 
   /* Brute Force appraoch to optimize for the optional attendees. Return the timeranges that fit the most optional attendees */
-  private Collection < TimeRange > bruteForce(Collection < TimeRange > timesToAdd, Collection < Event > optionalEvents, long meetingDuration, Collection < String > optionalAttendees, boolean noRequiredAttendees) {
+  private Collection<TimeRange> optimizeForOptionalAttendees(Collection<TimeRange> timesToAdd, Collection<Event> optionalEvents, long meetingDuration, Collection<String> optionalAttendees, boolean noRequiredAttendees) {
 
-    Collection < TimeRange > preferredTimes = new HashSet < > ();
-    Collection < TimeRange > betterPeriods = new HashSet < > ();
+    Collection<TimeRange> preferredTimes = new HashSet<> ();
+    Collection<TimeRange> betterPeriods = new HashSet<> ();
 
     // Instead of looping through every minute in the day, loop through every minute in the proposed times and check if there 
     // are any periods where more optional attendees are available
@@ -209,11 +209,11 @@ public final class FindMeetingQuery {
       for (int minute = period.start(); minute <= period.end() - meetingDuration; minute++) {
         int duration = (int) meetingDuration;
         TimeRange currentPeriod = TimeRange.fromStartDuration(minute, duration);
-        Collection < String > attendees = new HashSet < > ();
+        Collection<String> attendees = new HashSet<> ();
         // Check which optional attendees are not available during this period
         for (Event event: optionalEvents) {
           if (currentPeriod.overlaps(event.getWhen())) {
-            Set < String > intersection = new HashSet < String > (optionalAttendees);
+            Set<String> intersection = new HashSet<String> (optionalAttendees);
             intersection.retainAll(event.getAttendees());
             attendees.addAll(intersection);
           }
@@ -236,7 +236,7 @@ public final class FindMeetingQuery {
     }
 
     preferredTimes = process(betterPeriods);
-    if ((preferredTimes.size() > 0) || (noRequiredAttendees)) {
+    if ((preferredTimes.size()> 0) || (noRequiredAttendees)) {
       return preferredTimes;
     }
 
