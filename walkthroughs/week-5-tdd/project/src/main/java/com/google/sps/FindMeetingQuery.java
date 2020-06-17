@@ -55,7 +55,7 @@ public final class FindMeetingQuery {
     }
 
     // Get continuous timeline of blocked events
-    Collection<TimeRange> blockedTimeLine = process(blockedTimes);
+    Collection<TimeRange> blockedTimeLine = mergeTimeBlocks(blockedTimes);
     // Get available times from helper methods
     timesToAdd = addTimes(blockedTimeLine, request.getDuration());
 
@@ -136,7 +136,7 @@ public final class FindMeetingQuery {
   }
 
   /* Takes in a set of timeranges and parses them. Return a continuous, disjoint timeline of the events */
-  private Collection<TimeRange> process(Collection<TimeRange> blockedTimes) {
+  private Collection<TimeRange> mergeTimeBlocks(Collection<TimeRange> blockedTimes) {
 
     ArrayList<Integer> startTimes = new ArrayList<> ();
     ArrayList<Integer> endTimes = new ArrayList<> ();
@@ -196,7 +196,7 @@ public final class FindMeetingQuery {
     return blockedTimeline;
   }
 
-  /* Brute Force appraoch to optimize for the optional attendees. Return the timeranges that fit the most optional attendees */
+  /* Brute Force appraoch to optimize for the optional attendees. Return rmatting the timeranges that fit the most optional attendees */
   private Collection<TimeRange> optimizeForOptionalAttendees(Collection<TimeRange> timesToAdd, Collection<Event> optionalEvents, long meetingDuration, Collection<String> optionalAttendees, boolean noRequiredAttendees) {
 
     Collection<TimeRange> preferredTimes = new HashSet<> ();
@@ -235,7 +235,7 @@ public final class FindMeetingQuery {
       return preferredTimes;
     }
 
-    preferredTimes = process(betterPeriods);
+    preferredTimes = mergeTimeBlocks(betterPeriods);
     if ((preferredTimes.size()> 0) || (noRequiredAttendees)) {
       return preferredTimes;
     }
