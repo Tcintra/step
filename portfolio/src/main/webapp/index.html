@@ -4,126 +4,164 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
     <link rel='icon' href='images/favicon.png' type='image/x-icon'/ >
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="materialize.min.css">    
     <script src="script.js"></script>
     <script src="https://kit.fontawesome.com/1bb7eb9069.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="materialize.min.js"></script>    
+    <script>
+    $(document).ready(function(){
+        $('.sidenav').sidenav();
+    });
+    </script>
     <title>Front Page</title>
   </head>
-  <body class="spacing sansserif" style="background-color:#f1f1f1;" onload="frontPageLoad()">
-    <div id="header" class="header" style="z-index: 1000;">Thomas Nanba Cintra</div>
-    <div id="mySidenav" class="sidebar"> <a href="index.html" class="active">Home</a> <a href="coursework_and_skills.html">Coursework &amp; Skills</a> <a href="projects.html">Projects</a> <a href="resume.html">Resume</a> <a href="gallery.html">User Gallery</a><a href="map.html">Maps</a></div>
-    <div id="front-page-content" name="content" class="content">
-      <div id="front-page-row" name="row" class="front-page-row">
-        <div class="column1" name="column1" style="height: auto;">
-          <p class="heading" style="padding-top: 10px">About Me</p>
-          <p class="text" style="font-size: 16px"> Welcome to my digital portfolio. My name is Thomas Cintra, I am Brazilian-Japanese and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Productivity team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects. As well as my personal website, this web page was a starter project for the STEP program, and some of the functionalities will seem uncharacteristic of usual personal websites.</p>
-          <br/>
-          <p class="text" style="font-size: 16px"> Feel free to contact me at <a class="email" href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p>
-          <br/>
-          <p class="heading">A Brief Gallery</p>
-          <p class="text" style="padding-top: 10px; padding-bottom: 10px;">These were some pictures of myself, my friends, and my family. As part of the STEP project, please feel free to upload some of your own images to this site! To do so, navigate to the User Gallery page using the nav bar and you will see all previously posted images.</p>
-          <div class="slideshow-container" id="gallery"></div>
-          <br>
-          <div style="text-align:center">
-            <button onclick="previousSlide()" class="slide-btns"><i class="fas fa-chevron-left"></i></button>
-            <button onclick="nextSlide()" class="slide-btns"><i class="fas fa-chevron-right"></i></button>
+  <body onload="showSlides();">
+    <main>
+      <div class="blue darken-4 center center-align" style="padding-bottom: 0; margin-bottom: 0">
+        <div class="section blue darken-4 white-text center center-align" style="padding-bottom: 0; margin-bottom: 0">
+          <div class="row" style="padding-bottom: 0; margin-bottom: 0">
+            <div class="col s8 offset-s2" style="padding-bottom: 0; margin-bottom: 0">
+              <h1 class="center"><b>Thomas Cintra</b></h1>
+              <h4>My Portfolio</h4>
+            </div>
           </div>
-          <div style="text-align:center">
-            <button class="dot active" onclick="changeSlide(1)"></button> 
-            <button class="dot" onclick="changeSlide(2)"></button> 
-            <button class="dot" onclick="changeSlide(3)"></button> 
-            <button class="dot" onclick="changeSlide(4)"></button> 
-            <button class="dot" onclick="changeSlide(5)"></button> 
-            <button class="dot" onclick="changeSlide(6)"></button> 
-            <button class="dot" onclick="changeSlide(7)"></button> 
-            <button class="dot" onclick="changeSlide(8)"></button> 
-            <button class="dot" onclick="changeSlide(9)"></button> 
-            <button class="dot" onclick="changeSlide(10)"></button> 
-          </div>
-          <div id="comment-section" name="comments" class="comments-flexbox">
-            <p class="heading">Comment Section</p>
-            <div id="DOMDisplay"></div><br/>
-            <form id="comment-submission-form" class="comment-input" style="padding-top: 10px; display: none;" spellcheck="false">
-              <div class="name-rating-container">
-                <div>
-                  <input type="text" autocomplete="off" placeholder="Enter a userName" name="name" id="name" class="name text">
-                  <div class="line"></div>
-                </div>
-                <div class="select-container" style="top: -2.5px; padding-left: 10px;">
-                  <select name="rating" class="dropdown text" id="rating" style="font-size: 16px;">
-                    <option hidden selected value="0">Rate Me</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                </div>
-              </div>
-              <span style="margin: 0;">
-                <input type="text" autocomplete="off" class="comment-input comment-body" placeholder="Leave your comment here" name="body" id="body">
-                <div class="line" style="margin-top: 1px; margin-bottom: 0;"></div>
-              </span>
-              <div style="display: flex; flex-direction: row; justify-content: flex-end;">
-                <input type="reset" class="gen-btn cancel-btn" value="CANCEL">
-                <button onclick="postComment(event)" class="gen-btn post-btn">POST</button>
-              </div>
-            </form>
-            <p class="text" style="color: red; display: none;" id="injection-error">Please don't inject html or javascript into my website :(</p>
-            <p class="text" style="color: red; display: none;" id="name-blank">Please enter your name</p>
-            <p class="text" style="color: red; display: none;" id="comment-blank">Please enter a comment</p>
-            <p class="text" style="color: red; display: none;" id="rating-blank">Please enter a rating</p>
-            <span class="heading" style="font-size: 16px" id="total"></span>
-            <form class="text">
-              On Display:
-              <div class="select-container">
-                <select id="maximumComments" class="dropdown text" name="maximumComments" onchange="getCommentSection()">
-                  <option value="0">0</option>
-                  <option value="5">5</option>
-                  <option value="10" selected>10</option>
-                  <option value="15">15</option>
-                  <option value="20">20+</option>
-                </select>
-              </div>
-              Filter By:
-              <div class="select-container">
-                <select id="filter" class="dropdown text" name="filter" onChange="getCommentSection()">
-                  <option value="timestamp,DESCENDING" selected>Newest</option>
-                  <option value="timestamp,ASCENDING">Oldest</option>
-                  <option value="rating,DESCENDING">Highest Rating</option>
-                  <option value="rating,ASCENDING">Lowest Rating</option>
-                </select>
-              </div>
-            </form>
-            <p class="text" style="color: red" id="DeleteError"></p>
-            <ul id="history"></ul>
-          </div>
-        </div>
-        <div class="column2">
-          <img src="images/me.jpeg" alt="resume-pfp" class="resume-pfp" width="150px">
-          <p class="short-description"><b>Thomas Cintra</b>
-            <br/> STEP EngProd Intern at Google
-            <br/> 
-          </p>
-          <div class="media">
-            <form action="https://github.com/Tcintra" target="_blank">
-              <button type="submit" class="media-btns"><i class="fab fa-github fa-3x"></i></button>
-            </form>
-            <form action="https://www.linkedin.com/in/thomascintra/" target="_blank">
-              <button type="submit" class="media-btns"><i class="fab fa-linkedin fa-3x"></i></button>
-            </form>
-            <form action="https://instagram.com/tncintra" target="_blank">
-              <button type="submit" class="media-btns"><i class="fab fa-instagram-square fa-3x"></i></button>
-            </form>
-          </div>
-          <form action="images/Resume.pdf" download target="_blank">
-            <p class="text" style="font-size: 16px">Download my resume</p>
-            <button type="submit" class="media-btns"><i class="fas fa-file-download fa-3x"></i></button>
-          </form>
-          <form id="delete-all" action="/delete-comments" method="POST" style="display: none;">
-            <input type="submit" value="Delete All Comments">
-          </form>
         </div>
       </div>
-    </div>
+      <nav class="nav-center" style="box-shadow: none!important;">
+        <div class="nav-wrapper blue darken-4">
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
+          <ul id="nav-mobile" class="hide-on-med-and-down">
+            <li><a class="white-text" href="coursework_and_skills.html">Coursework &amp; Skills</a></li>
+            <li><a class="white-text" href="projects.html">Projects</a></li>
+            <li><a class="white-text" href="resume.html">Resume</a></li>
+          </ul>
+        </div>
+      </nav>
+      <ul class="sidenav blue darken-4" id="mobile-demo">
+        <li><a class="white-text" href="coursework_and_skills.html">Coursework &amp; Skills</a></li>
+        <li><a class="white-text" href="projects.html">Projects</a></li>
+        <li><a class="white-text" href="resume.html">Resume</a></li>
+      </ul>
+      <div class="container">
+        <div class="section">
+          <div class="row">
+            <div class="col s12 m8">
+              <p>Welcome to my digital portfolio. My name is Thomas Cintra, I am Brazilian-Japanese and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Productivity team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects.</p>
+              <p> Feel free to contact me at <a href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p>
+              <div class="slideshow-container" id="gallery"></div>
+              <br>
+              <div style="text-align:center">
+                  <button onclick="previousSlide()" class="slide-btns"><i class="fas fa-chevron-left"></i></button>
+                  <button onclick="nextSlide()" class="slide-btns"><i class="fas fa-chevron-right"></i></button>
+              </div>
+              <div style="text-align:center">
+                  <button class="dot active" onclick="changeSlide(1)"></button> 
+                  <button class="dot" onclick="changeSlide(2)"></button> 
+                  <button class="dot" onclick="changeSlide(3)"></button> 
+                  <button class="dot" onclick="changeSlide(4)"></button> 
+                  <button class="dot" onclick="changeSlide(5)"></button> 
+                  <button class="dot" onclick="changeSlide(6)"></button> 
+                  <button class="dot" onclick="changeSlide(7)"></button> 
+                  <button class="dot" onclick="changeSlide(8)"></button> 
+                  <button class="dot" onclick="changeSlide(9)"></button> 
+                  <button class="dot" onclick="changeSlide(10)"></button> 
+              </div>
+            </div>
+            <div class="col s12 m4 center-block center-align">
+              <img src="images/me.jpeg" alt="resume-pfp" class="resume-pfp" width="150px">
+              <h5>Thomas Cintra</h5>
+              <p>STEP EngProd Intern at Google</p>
+              <div class="row center center-block center-align">
+                <div class="col s4">
+                  <i onclick="location.href='https://github.com/Tcintra'" class="fab fa-github fa-3x grow right"></i>
+                </div>
+                <div class="col s4">
+                  <i onclick="location.href='https://www.linkedin.com/in/thomascintra/'" class="fab fa-linkedin fa-3x grow"></i>
+                </div>
+                <div class="col s4 left">
+                  <i onclick="location.href='https://instagram.com/tncintra'" class="fab fa-instagram-square fa-3x grow left"></i>
+                </div>
+              </div>
+              <form action="images/Resume.pdf" download target="_blank">
+                <p>Download my resume!</p>
+                <button type="submit" class="grow" style="background-color: inherit; border: none"><i class="fas fa-file-download fa-3x"></i></button>
+              </form>
+              <form id="delete-all" action="/delete-comments" method="POST" style="display: none;">
+                <input type="submit" value="Delete All Comments">
+              </form>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <h4 class="center-align">Relevant Coursework</h4>
+              <br>
+              <div class="row center">
+                <div class="col s12 m4">
+                  <i class="fas fa-calculator fa-3x"></i>
+                  <h5>Mathematics</h5>
+                  <ul>
+                    <li><b>MATH055:</b> Discrete Mathematics</li>
+                    <li><b>MATH070:</b> Linear Algebra</li>
+                    <li><b>MATH080:</b> Equations</li>
+                    <li><b>MATH171:</b> Abstract Algebra</li>
+                    <li><b>MATH035:</b> Probability</li>
+                  </ul>
+                </div>
+                <div class="col s12 m4">
+                  <i class="fas fa-atom fa-3x"></i>
+                  <h5>Physics</h5>
+                  <ul>
+                    <li><b>PHYS023:</b> Special Relativity</li>
+                    <li><b>PHYS024:</b> Mechanics</li>
+                    <li><b>PHYS051:</b> Electromagnetism</li>
+                    <li><b>PHYS052:</b> Quantum Physics</li>
+                  </ul>
+                </div>
+                <div class="col s12 m4">
+                  <i class="fas fa-laptop-code fa-3x"></i>
+                  <h5>Computer Science</h5>
+                  <ul>
+                    <li><b>CSCI005:</b> Intro to Compuer Science (Python)</li>
+                    <li><b>CSCI060:</b> Principles of Computer Science (Java &amp; Racket)</li>
+                    <li><b>CSCI070:</b> Data Structures and Program Development (C++)</li>
+                  </ul>
+                </div>
+              </div>
+              <h5>Programming Languages and Tools</h5>
+              <div class="row">
+                <ul class="col s2">
+                  <li><b>Proficient</b></li>
+                  <li><b>Experienced</b></li>
+                  <li><b>Familiar</b></li>
+                </ul>
+                <ul class="col s3">
+                  <li>Python, C++, Git</li>
+                  <li>Java, HTML, CSS, JavaScript</li>
+                  <li>Scikit-Learn, Pandas, Seaborn</li>
+                </ul>
+              </div>
+              <h5>Languages</h5>
+              <div class="row">
+                <ul class="col s2">
+                  <li><b>English</b></li>
+                  <li><b>Portuguese</b></li>
+                  <li><b>Spanish</b></li>
+                  <li><b>French</b></li>
+                </ul>
+                <ul class="col s3">
+                  <li>Native</li>
+                  <li>Native</li>
+                  <li>Conversational</li>
+                  <li>Conversational</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
