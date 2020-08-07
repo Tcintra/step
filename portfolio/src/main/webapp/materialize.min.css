@@ -42,10 +42,13 @@
   border: hidden;
 }
 
-.dot:focus,
-.slide-btns:focus {
+.dot:focus {
   outline: 0;
   background-color: #717171
+}
+
+.slide-btns:focus {
+  outline: 0;
 }
 
 .active {
