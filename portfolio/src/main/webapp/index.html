@@ -18,6 +18,15 @@
     <title>Front Page</title>
   </head>
   <body onload="showSlides();">
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large">
+        <i class="large material-icons">add</i>
+      </a>
+      <ul>
+        <li><a onclick="goToTop()" class="btn-floating red"><i class="material-icons">arrow_upward</i></a></li>
+        <li><a onclick="darkMode()" class="btn-floating yellow darken-1"><i class="material-icons">brightness_medium</i></a></li>
+      </ul>
+    </div>
     <main>
       <div class="blue darken-4 center center-align" style="padding-bottom: 0; margin-bottom: 0">
         <div class="section blue darken-4 white-text center center-align" style="padding-bottom: 0; margin-bottom: 0">
@@ -33,135 +42,317 @@
         <div class="nav-wrapper blue darken-4">
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
           <ul id="nav-mobile" class="hide-on-med-and-down">
-            <li><a class="white-text" href="coursework_and_skills.html">Coursework &amp; Skills</a></li>
-            <li><a class="white-text" href="projects.html">Projects</a></li>
-            <li><a class="white-text" href="resume.html">Resume</a></li>
+            <li><a class="white-text" href="#classwork-and-skills">Coursework &amp; Skills</a></li>
+            <li><a class="white-text" href="#projects">Projects &amp; Internships</a></li>
+            <li><a class="white-text" href="#brief-gallery">Gallery</a></li>
           </ul>
         </div>
       </nav>
       <ul class="sidenav blue darken-4" id="mobile-demo">
-        <li><a class="white-text" href="coursework_and_skills.html">Coursework &amp; Skills</a></li>
-        <li><a class="white-text" href="projects.html">Projects</a></li>
-        <li><a class="white-text" href="resume.html">Resume</a></li>
+        <li><a class="white-text" href="#classwork-and-skills">Coursework &amp; Skills</a></li>
+        <li><a class="white-text" href="#projects">Projects &amp; Internships</a></li>
+        <li><a class="white-text" href="#gallery">Gallery</a></li>
       </ul>
       <div class="container">
         <div class="section">
           <div class="row">
-            <div class="col s12 m8">
-              <p>Welcome to my digital portfolio. My name is Thomas Cintra, I am Brazilian-Japanese and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Productivity team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects.</p>
-              <p> Feel free to contact me at <a href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p>
-              <div class="slideshow-container" id="gallery"></div>
-              <br>
-              <div style="text-align:center">
-                  <button onclick="previousSlide()" class="slide-btns"><i class="fas fa-chevron-left"></i></button>
-                  <button onclick="nextSlide()" class="slide-btns"><i class="fas fa-chevron-right"></i></button>
-              </div>
-              <div style="text-align:center">
-                  <button class="dot active" onclick="changeSlide(1)"></button> 
-                  <button class="dot" onclick="changeSlide(2)"></button> 
-                  <button class="dot" onclick="changeSlide(3)"></button> 
-                  <button class="dot" onclick="changeSlide(4)"></button> 
-                  <button class="dot" onclick="changeSlide(5)"></button> 
-                  <button class="dot" onclick="changeSlide(6)"></button> 
-                  <button class="dot" onclick="changeSlide(7)"></button> 
-                  <button class="dot" onclick="changeSlide(8)"></button> 
-                  <button class="dot" onclick="changeSlide(9)"></button> 
-                  <button class="dot" onclick="changeSlide(10)"></button> 
-              </div>
-            </div>
-            <div class="col s12 m4 center-block center-align">
-              <img src="images/me.jpeg" alt="resume-pfp" class="resume-pfp" width="150px">
-              <h5>Thomas Cintra</h5>
-              <p>STEP EngProd Intern at Google</p>
-              <div class="row center center-block center-align">
-                <div class="col s4">
-                  <i onclick="location.href='https://github.com/Tcintra'" class="fab fa-github fa-3x grow right"></i>
+            <div class="col s12">
+              <h4 class="center-align"><b>About me</b></h4>
+              <p style="text-align: justify;">Welcome to my digital portfolio. My name is Thomas Cintra, I am Brazilian-Japanese and was born in the great city of São Paulo. I am currently a <b>STEP intern</b> in the Engineering Productivity team at Google. I am a rising junior at <b>Harvey Mudd College</b>, majoring in <b>Mathematics and Physics</b>. Although not a Computer Science major, I am deeply interested in software engineering and data science, having spent the past two summers working on tech related projects.</p>
+              <p>Feel free to contact me at <a href="mailto:tcintra@g.hmc.edu">tcintra@g.hmc.edu</a> with any questions, or just to chat!</p>
+              <p>Download my resume or follow any of the links below!</p>
+              <div class="row">
+                <div class="col s2 m1">
+                  <a href="/images/Resume.pdf" download><i id="file-download" class="black-text fas fa-file-download fa-3x grow black-text"></i></a>
                 </div>
-                <div class="col s4">
+                <div class="col s2 m1">
+                  <i onclick="location.href='https://github.com/Tcintra'" class="fab fa-github fa-3x grow"></i>
+                </div>
+                <div class="col s2 m1">
                   <i onclick="location.href='https://www.linkedin.com/in/thomascintra/'" class="fab fa-linkedin fa-3x grow"></i>
                 </div>
-                <div class="col s4 left">
-                  <i onclick="location.href='https://instagram.com/tncintra'" class="fab fa-instagram-square fa-3x grow left"></i>
-                </div>
-              </div>
-              <form action="images/Resume.pdf" download target="_blank">
-                <p>Download my resume!</p>
-                <button type="submit" class="grow" style="background-color: inherit; border: none"><i class="fas fa-file-download fa-3x"></i></button>
-              </form>
-              <form id="delete-all" action="/delete-comments" method="POST" style="display: none;">
-                <input type="submit" value="Delete All Comments">
-              </form>
-            </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s12">
-              <h4 class="center-align">Relevant Coursework</h4>
-              <br>
-              <div class="row center">
-                <div class="col s12 m4">
-                  <i class="fas fa-calculator fa-3x"></i>
-                  <h5>Mathematics</h5>
-                  <ul>
-                    <li><b>MATH055:</b> Discrete Mathematics</li>
-                    <li><b>MATH070:</b> Linear Algebra</li>
-                    <li><b>MATH080:</b> Equations</li>
-                    <li><b>MATH171:</b> Abstract Algebra</li>
-                    <li><b>MATH035:</b> Probability</li>
-                  </ul>
-                </div>
-                <div class="col s12 m4">
-                  <i class="fas fa-atom fa-3x"></i>
-                  <h5>Physics</h5>
-                  <ul>
-                    <li><b>PHYS023:</b> Special Relativity</li>
-                    <li><b>PHYS024:</b> Mechanics</li>
-                    <li><b>PHYS051:</b> Electromagnetism</li>
-                    <li><b>PHYS052:</b> Quantum Physics</li>
-                  </ul>
-                </div>
-                <div class="col s12 m4">
-                  <i class="fas fa-laptop-code fa-3x"></i>
-                  <h5>Computer Science</h5>
-                  <ul>
-                    <li><b>CSCI005:</b> Intro to Compuer Science (Python)</li>
-                    <li><b>CSCI060:</b> Principles of Computer Science (Java &amp; Racket)</li>
-                    <li><b>CSCI070:</b> Data Structures and Program Development (C++)</li>
-                  </ul>
-                </div>
-              </div>
-              <h5>Programming Languages and Tools</h5>
-              <div class="row">
-                <ul class="col s2">
-                  <li><b>Proficient</b></li>
-                  <li><b>Experienced</b></li>
-                  <li><b>Familiar</b></li>
-                </ul>
-                <ul class="col s3">
-                  <li>Python, C++, Git</li>
-                  <li>Java, HTML, CSS, JavaScript</li>
-                  <li>Scikit-Learn, Pandas, Seaborn</li>
-                </ul>
-              </div>
-              <h5>Languages</h5>
-              <div class="row">
-                <ul class="col s2">
-                  <li><b>English</b></li>
-                  <li><b>Portuguese</b></li>
-                  <li><b>Spanish</b></li>
-                  <li><b>French</b></li>
-                </ul>
-                <ul class="col s3">
-                  <li>Native</li>
-                  <li>Native</li>
-                  <li>Conversational</li>
-                  <li>Conversational</li>
-                </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div id="coursework-container" class="grey lighten-3">
+        <div class="container">
+          <div class="row">
+            <div class="col s12">
+              <h4 id="classwork-and-skills" class="center-align"><b>Relevant Coursework</b></h4>
+              <br>
+              <div class="row center">
+                <div class="col s12 m4">
+                  <i class="fas fa-calculator fa-3x"></i>
+                  <h5>Mathematics</h5>
+                  <div class="row" style="margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>MATH035:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Probability</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>MATH055:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Discrete Mathematics</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>MATH070:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Linear Algebra</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>MATH070:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Linear Algebra</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>MATH080:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Differential Equations</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>MATH171:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Abstract Algebra</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m4">
+                  <i class="fas fa-atom fa-3x"></i>
+                  <h5>Physics</h5>
+                  <div class="row" style="margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>PHYS023:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Special Relativity</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>PHYS024:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Mechanics</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>PHYS051:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Electromagnetism</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>PHYS052:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Quantum Physics</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m4">
+                  <i class="fas fa-laptop-code fa-3x"></i>
+                  <h5>Computer Science</h5>
+                  <div class="row" style="margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>CSCI005:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Intro to CS (Python)</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>CSCI060:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Principles of CS (Java)</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>CSCI070:</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Data Structures and Program Development (C++)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row center center-block center-align">
+                <div class="col s12 m6">
+                  <h5>Programming Languages and Tools</h5>
+                  <div class="row" style="margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>Proficient</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Python, Java, Javascript</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>Experienced</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">HTML, CSS, Materialize, Git</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>Familiar</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">C++, Scikit-Learn, Angular, Pandas</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m6">
+                  <h5>Languages</h5>
+                  <div class="row" style="margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>English</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Native</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>Portuguese</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Native</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>Spanish</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Conversational</p>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: 0; margin-bottom: 0;">
+                    <div class="col s6 right-align">
+                      <p style="margin-top: 0; margin-bottom: 0;"><b>French</b></p>
+                    </div>
+                    <div class="col s6 left-align">
+                      <p style="margin-top: 0; margin-bottom: 0;">Conversational</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <h4 id="projects" class="center-align"><b>Projects and Internships</b></h4>
+        <div class="row">
+          <h5>Portfolio</h5>
+          <div class="col s12">
+            <p>Designed and coded this portfolio website on HTML using the Materialize framework, Javascript, and JQuery!</p>
+            <ul>
+              <li><a href="https://github.com/tcintra/step">Repo</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <h5>Covidiena</h5>
+          <div class="col s12 m8">
+            <p>Designed and developed a Covid-19 relief web application for colleges opening in the Fall. Wrote design docs and database schemas. Implemented a cafeteria schedulerthat optimized meal times for students given their class schedules and preferences, enabling students to socially distance within dining halls. Developed an events feature for students to create, modify, and RSVP to on campus events. Using the App Engine datastore API, HTTPSessions, and Cron.yaml, crafted a database to store event and student data, which was central to the website’s contact tracing feature.</p>
+            <ul>
+              <li><a href="https://docs.google.com/presentation/d/1csiCJEvLBvVwJ-R7LhPejC3EZaQzDsrZOx22xAly4nc/edit?usp=sharing">Presentation</a></li>
+              <li><a href="https://github.com/rivera-fernando/covidiena">Repo</a></li>
+              <li><a href="https://covidiena.appspot.com">Link</a></li>
+            </ul>
+          </div>
+          <div class="col s12 m4">
+            <img src="images/covidiena.png" alt="algbias.png" width="300px" class="materialboxed">
+          </div>
+        </div>
+        <div class="row">
+          <h5>CSCI151 Coursework</h5>
+          <div class="col s12 m8">
+            <p>Research and development of machine learning coursework for CS181R - Data Science and Ethics. Projects included: data visualization using seaborn and matplotlib, missing values and feature engineering, and investigating algorithmic bias. The github repos and homework documents can be found below.</p>
+            <ul>
+              <li><a href="https://github.com/Tcintra/Data-Visualization">Data Visualization Repo</a></li>
+              <li><a href="https://github.com/Tcintra/Missing-Values-and-Feature-Engineering">Feature Engineering Repo</a></li>
+              <li><a href="https://github.com/Tcintra/algorithmic-bias">Algorithmic Bias Repo</a></li>
+            </ul>
+          </div>
+          <div class="col s12 m4">
+            <img src="images/algbias.png" alt="cafeteria.png" width="300px" class="materialboxed">
+          </div>
+        </div>
+        <div class="row">
+          <h5>Java Spampede Applet</h5>
+          <div class="col s12 m8">
+            <p>Designed a java applet that plays an interesting variation of Snake, with a few extra rules and an opponent snake trying to eat you. As Java applets are no longer supported on chrome, please download the zip file below to play the game! You might need to have an IDE that supports Java files, like Eclipse, to run the game.</p>
+            <a href="/japplet/japplet.zip" download>Download the zip File</a>
+          </div>
+          <div class="col s12 m4">
+            <img src="images/spampede.png" alt="spampede.png" width="300px" class="materialboxed">
+          </div>
+        </div>
+      </div>
+      <div id="gallery-container" class="grey lighten-3">
+        <div class="container">
+          <br>
+          <h4 id="brief-gallery" class="center-align"><b>A Brief Gallery</b></h4>
+          <div class="row">
+            <div class="col s12">
+              <div id="gallery" class="center center-align center-block" style="inline-block"></div>
+            </div>
+          </div>
+          <br>
+          <div style="text-align:center">
+            <button onclick="previousSlide()" class="slide-btns"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="nextSlide()" class="slide-btns"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div style="text-align:center">
+            <button class="dot active" onclick="changeSlide(1)"></button> 
+            <button class="dot" onclick="changeSlide(2)"></button> 
+            <button class="dot" onclick="changeSlide(3)"></button> 
+            <button class="dot" onclick="changeSlide(4)"></button> 
+            <button class="dot" onclick="changeSlide(5)"></button> 
+            <button class="dot" onclick="changeSlide(6)"></button> 
+            <button class="dot" onclick="changeSlide(7)"></button> 
+            <button class="dot" onclick="changeSlide(8)"></button> 
+            <button class="dot" onclick="changeSlide(9)"></button> 
+            <button class="dot" onclick="changeSlide(10)"></button> 
+          </div>
+          <br>
+        </div>
+      </div>
     </main>
+    <footer class="page-footer blue-grey darken-2">
+      <div class="footer-copyright blue-grey darken-2">
+        <p class="white-text center-block">Thomas Cintra's Portfolio</p>
+        <a class="center-align center-block center" href="mailto:tncintra@gmail.com?subject=Feedback">Contact Me</a>
+      </div>
+    </footer>
   </body>
 </html>

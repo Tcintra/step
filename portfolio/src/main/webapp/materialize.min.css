@@ -10,6 +10,56 @@
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.1); }
 
+.dark {
+  background-color: #202123;
+  color: #fff;
+}
+
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+.fixed-action-btn {
+  background-color: transparent !important;
+}
+
+.gallery-img {
+  display: block;
+  height: 250px;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+  border: hidden;
+}
+
+.dot:focus,
+.slide-btns:focus {
+  outline: 0;
+  background-color: #717171
+}
+
+.active {
+  background-color: #717171;
+}
+
+.slide-btns {
+  position: relative;
+  top: -8px;
+  background-color: inherit; 
+  border: hidden;
+  color: #717171;
+}
+
 nav.nav-center ul {
     text-align: center;
 }
